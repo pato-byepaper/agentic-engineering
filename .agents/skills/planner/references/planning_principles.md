@@ -5,7 +5,7 @@ When creating implementation plans with AI agents, follow these principles:
 ---
 
 ## 1. Plan Before Code
-Never permit an agent to start writing production code or creating branches until a plan artifact is drafted and approved. The plan clarifies ambiguous requirements and aligns expectations.
+Never permit an agent to start writing production code or creating branches until a plan artifact is drafted and approved. The plan clarifies ambiguous requirements and aligns expectations across the entire team (`manager`, `tech-lead`, `data-engineer`, `backend-developer`, `frontend-developer`, `code-reviewer`, `tester`, `git-publisher`).
 
 ---
 
@@ -17,11 +17,10 @@ Never permit an agent to start writing production code or creating branches unti
 
 ---
 
-## 3. Explicit Verification Gates
-Every phase in a plan must end with an objective verification gate:
-- "Run `npm test` and show green output."
-- "Execute `EXPLAIN ANALYZE` and verify index scan."
-- "Verify that LCP is < 2.5s and bundle size is within budget."
+## 3. Explicit Verification Gates & Strict Testing Separation
+Every phase in a plan must end with an objective verification gate that respects role boundaries:
+- **Developers (`data-engineer`, `backend-developer`, `frontend-developer`)**: NEVER write or run unit, component, integration, or E2E tests. Their verification gate is strictly static compilation/type checking (`npx tsc --noEmit`), query plan inspection (`EXPLAIN ANALYZE`), and bundle budget checks.
+- **Tester (`tester`)**: Exclusively authors and executes all unit, component, integration, and E2E tests, plus interactive browser validation, recording proofs in `test-results/<issue>.md`.
 
 ---
 
