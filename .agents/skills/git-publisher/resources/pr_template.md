@@ -14,8 +14,13 @@ flowchart LR
 <!-- Super simple ()->()-> diagram illustrating how to verify and test this change -->
 ```mermaid
 flowchart LR
-    T1["(Test Setup)"] --> T2["(Run Execution Command)"] --> T3["(Assert Expected Result)"]
+    T1["(Launch Local Server)"] --> T2["(Open http://localhost:8080/feature)"] --> T3["(Perform Action & Assert State)"]
 ```
+
+## UI Validation (For Frontend Changes)
+- **Local Preview Link**: `http://localhost:<PORT>/<feature>`
+- **Manual Verification Step**: Navigate to link, perform interaction, and verify expected rendering.
+- **Visual & Performance**: No layout shift (CLS < 0.1), responsive layout, and correct visual states.
 
 ## Stack Status
 <!-- If this is part of a stacked PR chain, list the sequence. Otherwise write 'N/A' -->
@@ -29,7 +34,8 @@ flowchart LR
 
 ## Verification & Testing
 <!-- Detail exact commands run and output status -->
-- [ ] Unit tests pass: `npm test` or `python3 -m unittest`
+- [ ] Unit & integration tests pass: `npm test` or `python3 -m unittest`
+- [ ] UI verified locally at `http://localhost:<PORT>/<feature>` (if applicable)
 - [ ] Verified no emojis in commit messages or PR text
 - [ ] Verified no AI co-authorship tags exist in commit log
 - [ ] Tested manually against issue acceptance criteria
