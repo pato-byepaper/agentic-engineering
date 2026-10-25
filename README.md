@@ -147,7 +147,7 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
 <table>
   <tr>
     <td width="33%" valign="top">
-      <h4>🎯 Planner</h4>
+      <h4>Planner</h4>
       Constructs phased implementation plans matching the task type:
       <ul>
         <li><b>Feature Plan</b>: Stacked architecture</li>
@@ -158,7 +158,7 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
       <sub>CLI: <code>./.agents/skills/planner/scripts/new_plan.sh</code></sub>
     </td>
     <td width="33%" valign="top">
-      <h4>🛡️ Code Reviewer</h4>
+      <h4>Code Reviewer</h4>
       Pre-flight automated gatekeeper reviewing diffs before merge:
       <ul>
         <li>OWASP Top 10 & SQL injection checks</li>
@@ -169,7 +169,7 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
       <sub>Script: <code>./.agents/skills/code-reviewer/scripts/pre_review_audit.sh</code></sub>
     </td>
     <td width="33%" valign="top">
-      <h4>📚 Doc Maintainer</h4>
+      <h4>Doc Maintainer</h4>
       Prevents documentation rot by keeping docs in lockstep with code:
       <ul>
         <li><b>ADR Management</b> (<code>docs/adr/</code>)</li>
@@ -181,17 +181,17 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
   </tr>
   <tr>
     <td width="33%" valign="top">
-      <h4>🛠️ Create Skill</h4>
+      <h4>Create Skill</h4>
       Converts your repetitive developer pain points and manual runbooks into modular Antigravity skills via an interactive interview.
       <sub>CLI: <code>./.agents/skills/create-skill/scripts/scaffold_skill.sh</code></sub>
     </td>
     <td width="33%" valign="top">
-      <h4>📦 Git Publisher</h4>
+      <h4>Git Publisher</h4>
       Enforces Conventional Commits, single PRs, stacked PRs (<code>gh stack</code>), and simple Mermaid diagrams. Never adds AI co-authors.
       <sub>Script: <code>./.agents/skills/git-publisher/scripts/verify_commit.sh</code></sub>
     </td>
     <td width="33%" valign="top">
-      <h4>🚀 Setup & Context</h4>
+      <h4>Setup & Context</h4>
       Scans any project stack and populates isolated <code>context/</code> folders in each agent so nobody loses the plot.
       <sub>Script: <code>./.agents/skills/setup/scripts/bootstrap_context.sh</code></sub>
     </td>
