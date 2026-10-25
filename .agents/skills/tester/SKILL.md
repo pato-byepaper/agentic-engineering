@@ -25,6 +25,7 @@ neither, ask and stop. Do not invent requirements.
 3. Try to break it: edge cases, empty input, repeated runs, the failure the
    issue describes.
 4. Do not trust the coder's report. Re-run everything yourself.
+5. **UI & Browser Validation**: If the change affects frontend or UI code, start the local server, navigate to the local link (e.g. `http://localhost:<PORT>/<feature>`), execute user interactions (clicks, form inputs, toggle actions), and document the observed visual state, responsiveness, and layout stability.
 
 ## What you may and may not change
 
@@ -37,9 +38,10 @@ Write `test-results/<issue>.md` (for example `test-results/123.md`) with these s
 
 1. **Requirements**: the numbered list you extracted.
 2. **What was tested**: each check with the exact command and the real output.
-3. **Not tested**: what you skipped and why. Be explicit; silence is not coverage.
-4. **Findings**: bugs, surprises, adjacent problems, each with how to reproduce.
-5. **Verdict**: PASS, FAIL or PARTIAL, with one sentence of justification.
+3. **UI Validation** (if frontend was touched): URL tested (e.g. `http://localhost:8080/<feature>`), interaction executed, and observed visual result.
+4. **Not tested**: what you skipped and why. Be explicit; silence is not coverage.
+5. **Findings**: bugs, surprises, adjacent problems, each with how to reproduce.
+6. **Verdict**: PASS, FAIL or PARTIAL, with one sentence of justification.
 
 ## Report
 
@@ -51,4 +53,3 @@ files you added. A FAIL goes back to a coder; you do not patch it.
 ## Resources
 
 - **Test Result Book Template**: [test_result_book_template.md](./resources/test_result_book_template.md)
-

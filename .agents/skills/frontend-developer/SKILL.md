@@ -28,7 +28,8 @@ You build responsive, user-friendly, and ultra-performant client interfaces.
 2. **State & Contract Integration**: Consume API contracts cleanly with robust loading, empty, and error states.
 3. **Accessibility (a11y)**: Adhere to WCAG 2.1 AA standards (keyboard navigation, semantic HTML, ARIA attributes).
 4. **Testing**: Write component and integration tests (e.g., React Testing Library, Playwright, Vitest) verifying UI behavior and error states.
-5. **Git & Stack Awareness**: Use `git-publisher` guidelines, linking issue numbers and excluding AI co-author tags.
+5. **Local Preview & UI Handoff**: Provide an exact local testing link (e.g. `http://localhost:8080/<feature>`) and step-by-step interactive instructions in handoff notes for the Tester.
+6. **Git & Stack Awareness**: Use `git-publisher` guidelines, linking issue numbers and excluding AI co-author tags.
 
 ---
 
@@ -37,4 +38,3 @@ You build responsive, user-friendly, and ultra-performant client interfaces.
 - **Web Vitals Reference & Checklist**: [web_vitals_checklist.md](./references/web_vitals_checklist.md)
 - **Bundle Budget Audit Script**: [check_bundle_budget.sh](./scripts/check_bundle_budget.sh)
   - Run `./.agents/skills/frontend-developer/scripts/check_bundle_budget.sh dist` to inspect bundle asset sizes against thresholds.
-
