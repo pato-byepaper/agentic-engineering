@@ -31,3 +31,5 @@
 - [ ] **Error Handling**: Exceptions are caught specifically; no silent swallowed errors (`except: pass`).
 - [ ] **No Lingering Debug Code**: No stray `console.log`, `debugger`, `print()`, or temporary dump files.
 - [ ] **Authorship Cleanliness**: No AI Co-Author trailers or AI generation watermarks.
+- [ ] **Zero Emojis**: Ensure commit messages, PR descriptions, and comments contain zero emojis.
+- [ ] **Dual Diagrams**: PR descriptions include both a logic diagram and a testing diagram.
