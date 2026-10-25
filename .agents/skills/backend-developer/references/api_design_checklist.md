@@ -45,12 +45,11 @@ Always return consistent, machine-readable JSON errors:
 
 ---
 
-## 4. Test-Driven Development (TDD) Workflow
+## 4. Verification & Testing Separation Workflow
 
-1. Write unit tests for domain business logic covering:
-   - Happy path.
-   - Boundary/edge cases (nulls, empty collections, zero values, negative values).
-   - Expected error conditions and status codes.
-2. Run test and verify it fails with the expected failure message.
-3. Implement minimal code to satisfy the test.
-4. Run the entire test suite and verify all tests pass.
+1. **STRICT INVARIANT**: Backend Developers NEVER write or run unit, integration, or E2E tests. Only the `tester` subagent writes and executes tests so that no developer can self-certify passing tests.
+2. Verify static type safety and compilation only (e.g., `npx tsc --noEmit`).
+3. In your handoff notes to the `tester`, clearly list:
+   - Happy path payload examples and expected status codes.
+   - Boundary/edge cases (nulls, empty collections, zero values, negative values) that the `tester` should target.
+   - Expected error codes and validation failure scenarios.
