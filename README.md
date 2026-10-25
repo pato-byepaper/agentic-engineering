@@ -36,6 +36,7 @@
 <p align="center">
   <a href="#-the-problem"><b>The Problem</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-meet-the-team"><b>The Team</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-engineering-skills"><b>Engineering Skills</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-watch-a-feature-ship"><b>How It Ships</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-install-in-60-seconds"><b>Install</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-the-one-rule"><b>The Rule</b></a>
@@ -136,6 +137,66 @@ flowchart TD
     class FE front
     class T test
 ```
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
+
+## <a id="-engineering-skills"></a>Engineering Skills & Toolkits
+
+Beyond the core roles, the team mounts specialized procedural toolkits on demand:
+
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h4>🎯 Planner</h4>
+      Constructs phased implementation plans matching the task type:
+      <ul>
+        <li><b>Feature Plan</b>: Stacked architecture</li>
+        <li><b>Bugfix RCA</b>: Reproduction & blast radius</li>
+        <li><b>Refactor Plan</b>: Invariants & strangler fig</li>
+        <li><b>Performance Plan</b>: Baselines & budgets</li>
+      </ul>
+      <sub>CLI: <code>./.agents/skills/planner/scripts/new_plan.sh</code></sub>
+    </td>
+    <td width="33%" valign="top">
+      <h4>🛡️ Code Reviewer</h4>
+      Pre-flight automated gatekeeper reviewing diffs before merge:
+      <ul>
+        <li>OWASP Top 10 & SQL injection checks</li>
+        <li>Leaked secrets & conflict markers</li>
+        <li>N+1 query & index verification</li>
+        <li>Core Web Vitals budget audit</li>
+      </ul>
+      <sub>Script: <code>./.agents/skills/code-reviewer/scripts/pre_review_audit.sh</code></sub>
+    </td>
+    <td width="33%" valign="top">
+      <h4>📚 Doc Maintainer</h4>
+      Prevents documentation rot by keeping docs in lockstep with code:
+      <ul>
+        <li><b>ADR Management</b> (<code>docs/adr/</code>)</li>
+        <li><b>API Specs</b> (OpenAPI / Markdown)</li>
+        <li>Automated doc-sync checks on API diffs</li>
+      </ul>
+      <sub>Script: <code>./.agents/skills/doc-maintainer/scripts/sync_docs_check.sh</code></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" valign="top">
+      <h4>🛠️ Create Skill</h4>
+      Converts your repetitive developer pain points and manual runbooks into modular Antigravity skills via an interactive interview.
+      <sub>CLI: <code>./.agents/skills/create-skill/scripts/scaffold_skill.sh</code></sub>
+    </td>
+    <td width="33%" valign="top">
+      <h4>📦 Git Publisher</h4>
+      Enforces Conventional Commits, single PRs, stacked PRs (<code>gh stack</code>), and simple Mermaid diagrams. Never adds AI co-authors.
+      <sub>Script: <code>./.agents/skills/git-publisher/scripts/verify_commit.sh</code></sub>
+    </td>
+    <td width="33%" valign="top">
+      <h4>🚀 Setup & Context</h4>
+      Scans any project stack and populates isolated <code>context/</code> folders in each agent so nobody loses the plot.
+      <sub>Script: <code>./.agents/skills/setup/scripts/bootstrap_context.sh</code></sub>
+    </td>
+  </tr>
+</table>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
@@ -248,7 +309,15 @@ The power of this team isn't what each agent can do. **It's what each agent is f
 
 ```text
 .agents/
-└── skills/
+├── subagents/                     # WHO does the work (Agent Personas & Manifests)
+│   ├── manager.json
+│   ├── tech-lead.json
+│   ├── data-engineer.json
+│   ├── backend-developer.json
+│   ├── frontend-developer.json
+│   └── tester.json
+│
+└── skills/                        # HOW work is executed (Procedures & Toolkits)
     ├── manager/
     ├── tech-lead/
     ├── data-engineer/
@@ -256,9 +325,11 @@ The power of this team isn't what each agent can do. **It's what each agent is f
     ├── frontend-developer/
     ├── tester/
     ├── git-publisher/
-    └── setup/
-        └── scripts/
-            └── bootstrap_context.sh
+    ├── setup/
+    ├── planner/                   # Structured Feature/Bugfix/Refactor/Perf plans
+    ├── code-reviewer/             # Pre-flight OWASP, N+1, & Web Vitals audit
+    ├── doc-maintainer/            # Automatic ADR & API spec synchronization
+    └── create-skill/              # Converts developer pain points into skills
 ```
 
 ## Contributing
