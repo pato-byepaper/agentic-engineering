@@ -26,7 +26,7 @@
   <tr>
     <td align="center" width="200"><h1>8</h1><sub><b>SPECIALIZED AGENTS</b></sub></td>
     <td align="center" width="200"><h1>Less</h1><sub><b>LINES OF CODE FROM YOU</b></sub></td>
-    <td align="center" width="200"><h1>k</h1><sub><b>STACKED PRs PER FEATURE</b></sub></td>
+    <td align="center" width="200"><h1>min 3</h1><sub><b>STACKED PRs PER FEATURE</b></sub></td>
     <td align="center" width="200"><h1>1</h1><sub><b>RULE THAT CANNOT BREAK</b></sub></td>
   </tr>
 </table>
