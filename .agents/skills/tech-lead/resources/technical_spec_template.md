@@ -1,11 +1,11 @@
-# Technical Architecture Specification: <Feature Name>
+# Technical Architecture Specification: <Feature / Initiative Name>
 
-## 1. High-Level Architecture
+## 1. High-Level Architecture & Multi-Ticket Mapping
 
 ```mermaid
 flowchart TD
-    Client["Frontend UI"] -->|"API Request"| API["Backend Service"]
-    API -->|"SQL / ORM Query"| DB[("Database")]
+    Client["Frontend UI (Sub-ticket 3)"] -->|"API Request"| API["Backend Service (Sub-ticket 2)"]
+    API -->|"SQL / ORM Query"| DB[("Database (Sub-ticket 1)")]
 ```
 
 ## 2. Cross-Service Contract & Interface Definition
@@ -22,32 +22,34 @@ export interface FeaturePayload {
 
 ---
 
-## 3. Sub-Ticket Breakdown & Delegation
+## 3. Sub-Ticket Breakdown & Autonomous Delegation Plan
 
-### Ticket 1: Data Engineer (Base Layer)
+### Sub-ticket 1: Data Engineer (PR 1 — Base Layer)
+- **Origin**: Human Ticket 1 / Database persistence requirements.
 - **Scope**: Schema definitions, indexes, RLS policies, migrations.
 - **Deliverables**: Migration script + query plan review (`EXPLAIN ANALYZE`). Zero test files written.
-- **Target Branch**: `feat/<feature>-data` (off `main`)
+- **Branch**: `feat/<feature>-1-data` (targets `main`).
+- **Commit Bar**: At least one clean conventional commit via Committer.
 
-### Ticket 2: Backend Developer (API & Domain Logic)
+### Sub-ticket 2: Backend Developer (PR 2 — API Layer)
+- **Origin**: Human Ticket 1 & 2 / Business logic & endpoints.
 - **Scope**: Endpoints, business logic, validation, error handling.
 - **Deliverables**: Controllers, domain services, DTO validators, static type check (`npx tsc --noEmit`). Zero test files written.
-- **Target Branch**: `feat/<feature>-backend` (stacked on `feat/<feature>-data`)
+- **Branch**: `feat/<feature>-2-api` (stacked on `feat/<feature>-1-data`).
+- **Commit Bar**: At least one clean conventional commit via Committer.
 
-### Ticket 3: Frontend Developer (UI & User Experience)
+### Sub-ticket 3: Frontend Developer (PR 3 — UI Layer)
+- **Origin**: Human Ticket 1 & 2 / User experience & views.
 - **Scope**: Client components, state management, accessibility, Google Core Web Vitals optimization.
 - **Deliverables**: Responsive UI components, zero layout shifts (CLS < 0.1), static type check (`npx tsc --noEmit`), local preview URL for Tester. Zero test files written.
-- **Target Branch**: `feat/<feature>-frontend` (stacked on `feat/<feature>-backend`)
-
-### Ticket 4: Tester (Exclusive Test Creation & Verification)
-- **Scope**: Unit, integration, component, and E2E test suites + interactive browser validation.
-- **Deliverables**: Test files authored + `test-results/<issue>.md` with raw command output proofs.
+- **Branch**: `feat/<feature>-3-ui` (stacked on `feat/<feature>-2-api`).
+- **Commit Bar**: At least one clean conventional commit via Committer.
 
 ---
 
-## 4. Stacked PR Order & Verification
-1. PR #1: Data Layer (`main` <- `feat/<feature>-data`)
-2. PR #2: Backend Layer (`feat/<feature>-data` <- `feat/<feature>-backend`)
-3. PR #3: Frontend Layer (`feat/<feature>-backend` <- `feat/<feature>-frontend`)
-4. Pre-flight check by `code-reviewer`
-5. Final Hand-off to `tester` for exclusive test authoring and end-to-end criteria verification.
+## 4. Mandatory At Least 3 Stacked PRs Execution Order
+1. **PR 1**: `feat/<feature>-1-data` -> `main` (Data Layer)
+2. **PR 2**: `feat/<feature>-2-api` -> `feat/<feature>-1-data` (API Layer)
+3. **PR 3**: `feat/<feature>-3-ui` -> `feat/<feature>-2-api` (UI Layer)
+4. Pre-flight review by `code-reviewer` across all stacked PRs.
+5. Final hand-off to `tester` for exclusive test authoring, test execution, and end-to-end criteria verification.
