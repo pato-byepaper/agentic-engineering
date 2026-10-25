@@ -14,8 +14,8 @@
 
 ## 2. Minimal Reproduction Steps
 ```bash
-# Command or test script that reproduces the bug
-<REPRO_COMMAND>
+# Command or user steps that reproduce the bug
+<REPRO_STEPS>
 ```
 - **Observed Failure Output**:
 ```text
@@ -37,14 +37,14 @@
 
 ---
 
-## 5. Phased Fix Strategy
-1. **Write Failing Test**: Author a test that specifically reproduces the failure.
-2. **Minimal Surgical Fix**: Apply the smallest necessary change to make the test pass.
-3. **Full Suite Verification**: Re-run the entire test suite to guarantee zero regression.
+## 5. Phased Fix & Exclusive Testing Strategy
+1. **Minimal Surgical Fix (Developer)**: Apply the smallest necessary production code change and verify compilation (`npx tsc --noEmit`). **Developers NEVER write or run tests.**
+2. **Pre-Flight Audit (Code Reviewer)**: Audit diff for regressions, security, and rule compliance.
+3. **Exclusive Test Creation & Verification (Tester)**: Only the `tester` subagent writes the reproducing regression test, runs the full test suite, and records the proof in `test-results/<issue>.md`.
 
 ---
 
 ## 6. Verification Gate
-- [ ] Reproducing test passes.
-- [ ] Full regression suite is green.
+- [ ] Static compilation passes (`npx tsc --noEmit`).
+- [ ] Tester authors reproducing test and verifies full regression suite is green.
 - [ ] Tester independently validates in `test-results/<issue>.md`.

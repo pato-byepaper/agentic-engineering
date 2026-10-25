@@ -211,8 +211,9 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 
 ## Key Invariants for Manager
 - Never inspect or edit source code directly.
-- Delegate implementation tickets to Tech Lead.
-- Accept feature completion only via Tester verification book.
+- Always orchestrate the full specialist team via Tech Lead (`data-engineer`, `backend-developer`, `frontend-developer`, `code-reviewer`, `tester`, `git-publisher`).
+- Enforce strict testing separation: developers never write or execute tests; only `tester` writes and executes tests.
+- Accept feature completion only via Tester verification book (`test-results/<issue>.md`).
 """
     write_file_if_needed(skills_dir / "manager" / "context" / "project_overview.md", mgr_ctx)
 
@@ -226,10 +227,11 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Database Engine & ORM**: {db_str} | {orm_str}
 - **Package Management**: {pkg_str}
 
-## Engineering Standards & Stacked PR Flow
-- Decomposition model: Data Schema Layer -> Backend API Layer -> Frontend UI Layer.
-- Stacked PR convention: Enforce branch stacking (`gh stack`) for dependent tasks.
-- Contracts must be explicitly defined (interfaces / schemas) before coders start work.
+## Engineering Standards, Full-Team Flow & Testing Separation
+- **Full-Team Pipeline**: `manager` -> `tech-lead` (`planner`) -> `data-engineer` -> `backend-developer` -> `frontend-developer` -> `code-reviewer` -> `tester` -> `doc-maintainer` / `git-publisher`.
+- **Stacked PR Convention**: Enforce branch stacking (`gh stack`) for dependent tasks (`Data -> Backend -> Frontend`).
+- **Contracts First**: Contracts must be explicitly defined (interfaces / schemas) before coders start work.
+- **Strict Testing Separation**: Coders NEVER write or execute tests (only static compilation checks like `npx tsc --noEmit`). Only `tester` writes and executes unit, integration, component, and E2E tests.
 """
     write_file_if_needed(skills_dir / "tech-lead" / "context" / "architecture.md", tl_ctx)
 
@@ -246,6 +248,10 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - Check indexing on foreign keys and high-frequency filter columns.
 - Ensure Row Level Security (RLS) policies exist if multi-tenant isolation is required.
 - Write reversible, zero-downtime migrations.
+
+## Verification & Testing Separation Rule
+- **STRICT INVARIANT**: Developers NEVER write or run unit, integration, or E2E tests. Only the `tester` subagent is authorized to write and execute tests so that no developer can self-certify passing tests.
+- Do not manually push to production; CI/CD executes migrations.
 """
     write_file_if_needed(skills_dir / "data-engineer" / "context" / "data_stack.md", de_ctx)
 
@@ -259,9 +265,12 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 
 ## Operating Guidelines
 - Follow contracts defined by Tech Lead.
-- Test-driven: write failing test first, run test suite, provide command output proof.
 - Standard error responses and input validation on all routes.
-- Commit clean code referencing issues without AI co-author tags.
+- Commit clean code referencing issues without emojis or AI co-author tags.
+
+## Verification & Testing Separation Rule
+- **STRICT INVARIANT**: Developers NEVER write or run their own unit, integration, or E2E tests. Only the `tester` subagent is authorized to write and execute tests so that no developer can self-certify passing tests.
+- Developers may run `npx tsc --noEmit` to verify compilation before handing off to the Tester.
 """
     write_file_if_needed(skills_dir / "backend-developer" / "context" / "backend_stack.md", be_ctx)
 
@@ -277,6 +286,10 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **LCP (Largest Contentful Paint)**: < 2.5s (preload hero media, optimize server rendering).
 - **INP (Interaction to Next Paint)**: < 200ms (avoid main thread blocking, optimistic UI).
 - **CLS (Cumulative Layout Shift)**: < 0.1 (explicit width/height, reserve aspect-ratio containers).
+
+## Strict Testing Separation Rule
+- **NEVER write or execute your own tests**: Only the `tester` subagent creates and runs unit, component, and Playwright E2E tests so that no developer can self-certify passing tests.
+- Only run `npx tsc --noEmit` to verify compilation before handing off to the Tester.
 """
     write_file_if_needed(skills_dir / "frontend-developer" / "context" / "frontend_stack.md", fe_ctx)
 
@@ -287,10 +300,11 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Test Runner / Framework**: {test_str}
 - **Verification Target Directory**: `test-results/<issue>.md`
 
-## Operating Guidelines
-- Independent verification against acceptance criteria.
+## Exclusive Testing Authority & Operating Guidelines
+- **EXCLUSIVE OWNER**: Only the `tester` subagent is authorized to write and execute unit, component, integration, and E2E tests. Developers (`data-engineer`, `backend-developer`, `frontend-developer`, `coder`) NEVER write or run tests.
+- Perform independent verification against acceptance criteria.
 - Never fix bugs or touch production files.
-- Always include raw command outputs in the Test Result Book.
+- Always include raw command outputs and live UI verification proofs in the Test Result Book.
 """
     write_file_if_needed(skills_dir / "tester" / "context" / "test_stack.md", tester_ctx)
 
@@ -302,9 +316,9 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Remote**: {git_info['remote']}
 
 ## Rules
-- Never add AI Co-Authored trailers or AI watermarks.
+- Never add emojis, AI Co-Authored trailers, or AI watermarks.
 - Follow Conventional Commits: `feat:`, `fix:`, `refactor:`, `test:`, `chore:`.
-- Include simple Mermaid diagrams in PR descriptions.
+- Include dual simple `()->()->` Mermaid diagrams in PR descriptions.
 - Use `gh stack` / stacked PRs when features have dependent layers.
 """
     write_file_if_needed(skills_dir / "git-publisher" / "context" / "git_conventions.md", git_ctx)

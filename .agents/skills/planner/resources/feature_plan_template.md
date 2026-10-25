@@ -21,7 +21,7 @@ flowchart LR
 - [ ] Schema changes & migrations.
 - [ ] Primary key & foreign key indexing.
 - [ ] Row Level Security (RLS) policies.
-- **Verification Gate**: Migration runs and rolls back cleanly (`EXPLAIN ANALYZE` proof).
+- **Verification Gate**: Migration syntax/schema check and query plan review (`EXPLAIN ANALYZE` proof). **Zero tests written by Data Engineer.**
 - **Branch**: `feat/<name>-data` (targets `main`)
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 - [ ] Interface types & DTO validation.
 - [ ] Domain service logic & business rules.
 - [ ] Controller endpoints & standardized error codes.
-- **Verification Gate**: Unit and integration test suite passing with raw output.
+- **Verification Gate**: Static compilation/type check passing (`npx tsc --noEmit`). **Zero tests written or run by Backend Developer.**
 - **Branch**: `feat/<name>-api` (stacked on `feat/<name>-data`)
 
 ---
@@ -39,12 +39,13 @@ flowchart LR
 - [ ] Responsive components & design system integration.
 - [ ] State management, optimistic updates, and loading skeletons.
 - [ ] Google Core Web Vitals audit (LCP < 2.5s, INP < 200ms, CLS < 0.1).
-- **Verification Gate**: Zero layout shift, bundle budget respected.
+- **Verification Gate**: Static compilation/type check (`npx tsc --noEmit`), zero layout shift, bundle budget respected, and local preview URL documented. **Zero tests written or run by Frontend Developer.**
 - **Branch**: `feat/<name>-ui` (stacked on `feat/<name>-api`)
 
 ---
 
-## 5. Phase 4: Independent Verification (Tester)
-- [ ] End-to-end user scenario testing.
-- [ ] Edge cases and invalid inputs.
+## 5. Phase 4: Exclusive Test Creation & Verification (Tester)
+- [ ] Author and execute unit, integration, component, and E2E tests.
+- [ ] Execute live interactive UI scenario testing at local preview URL.
+- [ ] Test edge cases and invalid inputs.
 - [ ] Output recorded in `test-results/<issue>.md`.
