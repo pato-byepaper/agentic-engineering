@@ -202,7 +202,7 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
 
 ## <a id="-watch-a-feature-ship"></a>Watch a feature ship
 
-You type one sentence. The team does the rest.
+You trigger with `TEAM`. The team does the rest.
 
 ```mermaid
 sequenceDiagram
@@ -213,20 +213,21 @@ sequenceDiagram
     participant DE as Data Engineer
     participant BE as Backend
     participant FE as Frontend
+    participant GP as Committer (Git Publisher)
     participant T as Tester
-    participant GP as Git Publisher
 
-    You->>M: "Let users export their invoices"
-    M->>TL: Product spec + acceptance criteria
-    TL->>DE: Schema + migration contract
-    DE->>GP: PR 1: data layer
-    TL->>BE: API contract
-    BE->>GP: PR 2: API layer (stacked on PR 1)
-    TL->>FE: UI contract + Web Vitals budget
-    FE->>GP: PR 3: UI layer (stacked on PR 2)
-    DE->>T: Ready
-    BE->>T: Ready
-    FE->>T: Ready
+    You->>M: TEAM resolve tickets: """ticket 1""" """ticket 2"""
+    Note over M: Ingests tickets & maps capabilities & services
+    M->>TL: Unified Product Capability Brief + Acceptance Criteria
+    Note over TL: Decomposes into sub-tasks & enforces 3 Stacked PRs
+    TL->>DE: Sub-ticket 1: Schema + migration contract
+    DE->>GP: PR 1: Data layer (feat/<name>-1-data -> main)
+    TL->>BE: Sub-ticket 2: API contract
+    BE->>GP: PR 2: API layer (feat/<name>-2-api -> PR 1)
+    TL->>FE: Sub-ticket 3: UI contract + Web Vitals budget
+    FE->>GP: PR 3: UI layer (feat/<name>-3-ui -> PR 2)
+    TL->>T: At least 3 Stacked PRs ready for verification
+    Note over T: Exclusively writes and runs all tests + UI verification
     T->>M: Result book: pass or fail per criterion
     M->>You: Accepted, or sent back with findings
 ```
@@ -287,11 +288,13 @@ The power of this team isn't what each agent can do. **It's what each agent is f
 | **01** | The Manager never touches code | Product decisions stay product decisions |
 | **02** | The Tech Lead defines contracts first | Nobody builds against an interface that doesn't exist |
 | **03** | The Data Engineer goes first | Schemas are reviewed before a single endpoint exists |
-| **04** | Developers never write or run tests | Only the Tester creates and executes tests so no coder self-certifies |
-| **05** | The Tester never fixes | Findings go back to the owner, not around them |
-| **06** | No emojis in commits or PRs | Clean, professional plain text without decoration |
-| **07** | Dual simple diagrams in PRs | Every PR illustrates logic flow and test execution |
-| **08** | No AI co-author tags | Git history is written for humans |
+| **04** | At least 3 stacked PRs | Full-stack changes are stacked: Data -> Backend -> Frontend |
+| **05** | At least 1 commit per task | Committer commits proactively; never leave uncommitted work |
+| **06** | Developers never write or run tests | Only the Tester creates and executes tests so no coder self-certifies |
+| **07** | The Tester never fixes | Findings go back to the owner, not around them |
+| **08** | No emojis in commits or PRs | Clean, professional plain text without decoration |
+| **09** | Dual simple diagrams in PRs | Every PR illustrates logic flow and test execution |
+| **10** | No AI co-author tags | Git history is written for humans |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
@@ -318,6 +321,7 @@ The power of this team isn't what each agent can do. **It's what each agent is f
 │   ├── data-engineer.json
 │   ├── backend-developer.json
 │   ├── frontend-developer.json
+│   ├── committer.json
 │   └── tester.json
 │
 └── skills/                        # HOW work is executed (Procedures & Toolkits)

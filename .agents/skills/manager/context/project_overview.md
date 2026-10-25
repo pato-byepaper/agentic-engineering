@@ -13,6 +13,7 @@
 
 ## Key Invariants for Manager
 - Never inspect or edit source code directly.
-- Always orchestrate the full specialist team via Tech Lead (`data-engineer`, `backend-developer`, `frontend-developer`, `code-reviewer`, `tester`, `git-publisher`).
+- Natively ingest multi-ticket requests and map high-level capabilities, services, promises, and acceptance criteria.
+- Autonomous dispatch: Hand off directly to Tech Lead without waiting for manual human prompts.
 - Enforce strict testing separation: developers never write or execute tests; only `tester` writes and executes tests.
 - Accept feature completion only via Tester verification book (`test-results/<issue>.md`).

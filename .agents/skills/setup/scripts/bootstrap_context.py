@@ -211,7 +211,8 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 
 ## Key Invariants for Manager
 - Never inspect or edit source code directly.
-- Always orchestrate the full specialist team via Tech Lead (`data-engineer`, `backend-developer`, `frontend-developer`, `code-reviewer`, `tester`, `git-publisher`).
+- Natively ingest multi-ticket requests and map high-level capabilities, services, promises, and acceptance criteria.
+- Autonomous dispatch: Hand off directly to Tech Lead without waiting for manual human prompts.
 - Enforce strict testing separation: developers never write or execute tests; only `tester` writes and executes tests.
 - Accept feature completion only via Tester verification book (`test-results/<issue>.md`).
 """
@@ -227,9 +228,10 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Database Engine & ORM**: {db_str} | {orm_str}
 - **Package Management**: {pkg_str}
 
-## Engineering Standards, Full-Team Flow & Testing Separation
+## Engineering Standards, Full-Team Flow & Mandatory 3 Stacked PRs
 - **Full-Team Pipeline**: `manager` -> `tech-lead` (`planner`) -> `data-engineer` -> `backend-developer` -> `frontend-developer` -> `code-reviewer` -> `tester` -> `doc-maintainer` / `git-publisher`.
-- **Stacked PR Convention**: Enforce branch stacking (`gh stack`) for dependent tasks (`Data -> Backend -> Frontend`).
+- **Mandatory At Least 3 Stacked PRs**: For full-stack features touching data, backend, and frontend, enforce at least 3 stacked PRs (`PR 1: Data -> main`, `PR 2: Backend -> PR 1`, `PR 3: Frontend -> PR 2`).
+- **Autonomous Dispatch**: Actively invoke subagents without waiting for manual human prompts.
 - **Contracts First**: Contracts must be explicitly defined (interfaces / schemas) before coders start work.
 - **Strict Testing Separation**: Coders NEVER write or execute tests (only static compilation checks like `npx tsc --noEmit`). Only `tester` writes and executes unit, integration, component, and E2E tests.
 """
@@ -248,9 +250,11 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - Check indexing on foreign keys and high-frequency filter columns.
 - Ensure Row Level Security (RLS) policies exist if multi-tenant isolation is required.
 - Write reversible, zero-downtime migrations.
+- Base of the stack: Forms PR 1 (`feat/<feature>-1-data` targeting `main`).
 
-## Verification & Testing Separation Rule
+## Verification, Testing Separation & Committer Handoff
 - **STRICT INVARIANT**: Developers NEVER write or run unit, integration, or E2E tests. Only the `tester` subagent is authorized to write and execute tests so that no developer can self-certify passing tests.
+- **At Least 1 Commit Per Task**: As soon as schema changes and syntax checks pass, immediately hand off to Committer (`git-publisher`) to create at least one commit on the stacked branch.
 - Do not manually push to production; CI/CD executes migrations.
 """
     write_file_if_needed(skills_dir / "data-engineer" / "context" / "data_stack.md", de_ctx)
@@ -262,15 +266,17 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Framework / Runtime**: {be_str}
 - **Language**: {langs_str}
 - **Data Layer Integration**: Interacts via {orm_str} / {db_str}
+- **Stacked Branch**: `feat/<feature>-2-api` (PR 2, targeting `feat/<feature>-1-data`)
 
 ## Operating Guidelines
 - Follow contracts defined by Tech Lead.
 - Standard error responses and input validation on all routes.
 - Commit clean code referencing issues without emojis or AI co-author tags.
 
-## Verification & Testing Separation Rule
+## Verification, Testing Separation & Committer Handoff
 - **STRICT INVARIANT**: Developers NEVER write or run their own unit, integration, or E2E tests. Only the `tester` subagent is authorized to write and execute tests so that no developer can self-certify passing tests.
-- Developers may run `npx tsc --noEmit` to verify compilation before handing off to the Tester.
+- Developers may run `npx tsc --noEmit` to verify compilation before handing off.
+- **At Least 1 Commit Per Task**: As soon as code changes and type checks pass, immediately hand off to Committer (`git-publisher`) to commit on `feat/<feature>-2-api` and update the stacked PR. Never leave tasks uncommitted.
 """
     write_file_if_needed(skills_dir / "backend-developer" / "context" / "backend_stack.md", be_ctx)
 
@@ -281,15 +287,17 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Framework**: {fe_str}
 - **Styling Solution**: {styling_str}
 - **Package Manager**: {pkg_str}
+- **Stacked Branch**: `feat/<feature>-3-ui` (PR 3, targeting `feat/<feature>-2-api`)
 
 ## Google Core Web Vitals Targets
 - **LCP (Largest Contentful Paint)**: < 2.5s (preload hero media, optimize server rendering).
 - **INP (Interaction to Next Paint)**: < 200ms (avoid main thread blocking, optimistic UI).
 - **CLS (Cumulative Layout Shift)**: < 0.1 (explicit width/height, reserve aspect-ratio containers).
 
-## Strict Testing Separation Rule
+## Strict Testing Separation & Committer Handoff
 - **NEVER write or execute your own tests**: Only the `tester` subagent creates and runs unit, component, and Playwright E2E tests so that no developer can self-certify passing tests.
-- Only run `npx tsc --noEmit` to verify compilation before handing off to the Tester.
+- Only run `npx tsc --noEmit` to verify compilation and provide a local preview URL.
+- **At Least 1 Commit Per Task**: Immediately hand off to Committer (`git-publisher`) upon completing UI changes to commit on `feat/<feature>-3-ui` and update the stacked PR.
 """
     write_file_if_needed(skills_dir / "frontend-developer" / "context" / "frontend_stack.md", fe_ctx)
 
@@ -316,10 +324,11 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 - **Remote**: {git_info['remote']}
 
 ## Rules
+- **At Least 1 Commit Per Task**: Proactively commit developer changes as soon as tasks finish without waiting for manual human prompts.
+- **Mandatory At Least 3 Stacked PRs**: For full-stack features, enforce the 3-PR stack (`PR 1: Data -> main`, `PR 2: Backend -> PR 1`, `PR 3: Frontend -> PR 2`).
 - Never add emojis, AI Co-Authored trailers, or AI watermarks.
 - Follow Conventional Commits: `feat:`, `fix:`, `refactor:`, `test:`, `chore:`.
 - Include dual simple `()->()->` Mermaid diagrams in PR descriptions.
-- Use `gh stack` / stacked PRs when features have dependent layers.
 """
     write_file_if_needed(skills_dir / "git-publisher" / "context" / "git_conventions.md", git_ctx)
 
