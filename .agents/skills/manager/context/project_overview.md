@@ -13,5 +13,6 @@
 
 ## Key Invariants for Manager
 - Never inspect or edit source code directly.
-- Delegate implementation tickets to Tech Lead.
-- Accept feature completion only via Tester verification book.
+- Always orchestrate the full specialist team via Tech Lead (`data-engineer`, `backend-developer`, `frontend-developer`, `code-reviewer`, `tester`, `git-publisher`).
+- Enforce strict testing separation: developers never write or execute tests; only `tester` writes and executes tests.
+- Accept feature completion only via Tester verification book (`test-results/<issue>.md`).
