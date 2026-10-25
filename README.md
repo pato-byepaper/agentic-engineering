@@ -79,7 +79,7 @@ Give one agent a big feature and you get one giant, unreviewable diff written by
     </td>
     <td width="25%" valign="top" align="center">
       <img src="https://img.shields.io/badge/BACKEND-22C55E?style=for-the-badge" alt="Backend Developer"/><br/><br/>
-      Business logic, API endpoints, domain validation and server tests.<br/><br/>
+      Business logic, API endpoints, domain validation and error handling.<br/><br/>
       <sub><b>BUILDS ON THE DATA LAYER, NEVER AROUND IT</b></sub>
     </td>
   </tr>
@@ -91,8 +91,8 @@ Give one agent a big feature and you get one giant, unreviewable diff written by
     </td>
     <td width="25%" valign="top" align="center">
       <img src="https://img.shields.io/badge/TESTER-EF4444?style=for-the-badge" alt="Tester"/><br/><br/>
-      Independent verification written to <code>test-results/&lt;issue&gt;.md</code>.<br/><br/>
-      <sub><b>NEVER FIXES CODE</b></sub>
+      Exclusive test creation and independent verification in <code>test-results/&lt;issue&gt;.md</code>.<br/><br/>
+      <sub><b>ONLY AGENT THAT WRITES TESTS · NEVER FIXES CODE</b></sub>
     </td>
     <td width="25%" valign="top" align="center">
       <img src="https://img.shields.io/badge/GIT_PUBLISHER-F97316?style=for-the-badge" alt="Git Publisher"/><br/><br/>
@@ -287,10 +287,11 @@ The power of this team isn't what each agent can do. **It's what each agent is f
 | **01** | The Manager never touches code | Product decisions stay product decisions |
 | **02** | The Tech Lead defines contracts first | Nobody builds against an interface that doesn't exist |
 | **03** | The Data Engineer goes first | Schemas are reviewed before a single endpoint exists |
-| **04** | The Tester never fixes | Findings go back to the owner, not around them |
-| **05** | No emojis in commits or PRs | Clean, professional plain text without decoration |
-| **06** | Dual simple diagrams in PRs | Every PR illustrates logic flow and test execution |
-| **07** | No AI co-author tags | Git history is written for humans |
+| **04** | Developers never write or run tests | Only the Tester creates and executes tests so no coder self-certifies |
+| **05** | The Tester never fixes | Findings go back to the owner, not around them |
+| **06** | No emojis in commits or PRs | Clean, professional plain text without decoration |
+| **07** | Dual simple diagrams in PRs | Every PR illustrates logic flow and test execution |
+| **08** | No AI co-author tags | Git history is written for humans |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
