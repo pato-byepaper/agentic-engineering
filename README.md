@@ -1,70 +1,147 @@
-<div align="center">
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=venom&color=0:0d1117,40:4285F4,70:8E75B2,100:F97316&height=280&section=header&text=agentic-engineering&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=42&desc=Low%20code.%20High%20engineering.&descSize=22&descAlignY=62&stroke=ffffff&strokeWidth=1" alt="agentic-engineering" width="100%" />
+</p>
 
-# agentic-engineering
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=22&duration=2600&pause=900&color=8E75B2&center=true&vCenter=true&multiline=false&width=760&height=45&lines=You+don%27t+write+the+code+anymore.;You+design+the+mind+that+writes+it.;8+agents.+1+team.+Zero+shortcuts.;From+product+idea+to+stacked+PRs.;Nobody+fixes+their+own+work." alt="Typing tagline" />
+</p>
 
-### Low code. High engineering.
+<p align="center">
+  <img src="https://img.shields.io/badge/DESIGNED_FOR-GEMINI_4-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white&labelColor=0d1117" alt="Designed for Gemini 4"/>
+  <img src="https://img.shields.io/badge/WORKS_WITH-ANY_AGENT-F97316?style=for-the-badge&logoColor=white&labelColor=0d1117" alt="Works with any agent"/>
+  <img src="https://img.shields.io/badge/LICENSE-MIT-22C55E?style=for-the-badge&labelColor=0d1117" alt="MIT"/>
+</p>
 
-**A complete AI software engineering team, packaged as agent skills.**
-You stop writing code and start designing the mind behind it.
+<p align="center">
+  <img src="https://img.shields.io/badge/Gemini-0d1117?style=flat-square&logo=googlegemini&logoColor=8E75B2" alt="Gemini"/>
+  <img src="https://img.shields.io/badge/Claude-0d1117?style=flat-square&logo=claude&logoColor=D97757" alt="Claude"/>
+  <img src="https://img.shields.io/badge/GPT-0d1117?style=flat-square&logo=openai&logoColor=white" alt="GPT"/>
+  <img src="https://img.shields.io/badge/Cursor-0d1117?style=flat-square&logo=cursor&logoColor=white" alt="Cursor"/>
+  <img src="https://img.shields.io/badge/Your_agent-0d1117?style=flat-square&logo=probot&logoColor=F97316" alt="Your agent"/>
+</p>
 
 <br/>
 
-![Built for Antigravity](https://img.shields.io/badge/Built_for-Antigravity-1a1b27?style=for-the-badge&logo=google&logoColor=4285F4)
-![Gemini 4](https://img.shields.io/badge/Optimized_for-Gemini_4-1a1b27?style=for-the-badge&logo=googlegemini&logoColor=8E75B2)
-![Any Agent](https://img.shields.io/badge/Works_with-Any_Agent-1a1b27?style=for-the-badge&logo=robotframework&logoColor=c0caf5)
-![License MIT](https://img.shields.io/badge/License-MIT-1a1b27?style=for-the-badge&logoColor=c0caf5)
+<table align="center">
+  <tr>
+    <td align="center" width="200"><h1>8</h1><sub><b>SPECIALIZED AGENTS</b></sub></td>
+    <td align="center" width="200"><h1>Less</h1><sub><b>LINES OF CODE FROM YOU</b></sub></td>
+    <td align="center" width="200"><h1>k</h1><sub><b>STACKED PRs PER FEATURE</b></sub></td>
+    <td align="center" width="200"><h1>1</h1><sub><b>RULE THAT CANNOT BREAK</b></sub></td>
+  </tr>
+</table>
 
 <br/>
 
-[The Team](#the-team) &nbsp;·&nbsp; [How It Works](#how-a-feature-ships) &nbsp;·&nbsp; [Quick Start](#quick-start) &nbsp;·&nbsp; [Guardrails](#the-guardrails) &nbsp;·&nbsp; [Philosophy](#core-principle)
+<p align="center">
+  <a href="#-the-problem"><b>The Problem</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-meet-the-team"><b>The Team</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-watch-a-feature-ship"><b>How It Ships</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-install-in-60-seconds"><b>Install</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-the-one-rule"><b>The Rule</b></a>
+</p>
 
-</div>
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
----
+## <a id="-the-problem"></a>The problem
 
-## Why this exists
+AI agents can write code all day. **That was never the hard part.**
 
-AI agents can already write code. What they can't do on their own is **engineer**: split a product into contracts, sequence the work, protect the data layer, verify independently and ship clean pull requests.
+The hard part is engineering: turning an idea into contracts, protecting the data layer, sequencing work, verifying independently and shipping pull requests a human can actually review.
 
-`agentic-engineering` gives your agent a real team structure. Eight specialized roles, each with strict boundaries, its own context and a clear handoff to the next. The same discipline a senior engineering team follows, running entirely on agents.
+Give one agent a big feature and you get one giant, unreviewable diff written by the same mind that approved it.
 
-Deploy it into **any codebase**: full-stack web apps, APIs, microservices or data platforms.
+**agentic-engineering gives your agent a team instead.** Eight roles. Strict boundaries. Clean handoffs. The discipline of a senior engineering org, running entirely on agents, inside **any codebase**: full-stack apps, APIs, microservices or data platforms.
 
-> Built and battle-tested with **Antigravity (`agy`) and Gemini 4**. The skills are plain Markdown and scripts, so any agent that can follow file-based instructions can run the team.
+> Designed and battle-tested with **Gemini 4** inside Antigravity. But every skill is plain Markdown and scripts, so **Claude, GPT, Cursor or whatever agent you use** can run the whole team.
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
-## The team
+## <a id="-meet-the-team"></a>Meet the team
+
+<table>
+  <tr>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/MANAGER-8E75B2?style=for-the-badge" alt="Manager"/><br/><br/>
+      Product vision, customer journey and acceptance criteria.<br/><br/>
+      <sub><b>NEVER READS OR WRITES CODE</b></sub>
+    </td>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/TECH_LEAD-4285F4?style=for-the-badge" alt="Tech Lead"/><br/><br/>
+      Architecture, cross-service contracts and task sequencing.<br/><br/>
+      <sub><b>CONTRACTS BEFORE CODE</b></sub>
+    </td>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/DATA_ENGINEER-0EA5E9?style=for-the-badge" alt="Data Engineer"/><br/><br/>
+      Schemas, indexing, migrations and Row Level Security.<br/><br/>
+      <sub><b>ALWAYS REVIEWS SCHEMAS FIRST</b></sub>
+    </td>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/BACKEND-22C55E?style=for-the-badge" alt="Backend Developer"/><br/><br/>
+      Business logic, API endpoints, domain validation and server tests.<br/><br/>
+      <sub><b>BUILDS ON THE DATA LAYER, NEVER AROUND IT</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/FRONTEND-EAB308?style=for-the-badge" alt="Frontend Developer"/><br/><br/>
+      Responsive interfaces held to Google Core Web Vitals.<br/><br/>
+      <sub><b>LCP &lt; 2.5s &nbsp;·&nbsp; INP &lt; 200ms &nbsp;·&nbsp; CLS &lt; 0.1</b></sub>
+    </td>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/TESTER-EF4444?style=for-the-badge" alt="Tester"/><br/><br/>
+      Independent verification written to <code>test-results/&lt;issue&gt;.md</code>.<br/><br/>
+      <sub><b>NEVER FIXES CODE</b></sub>
+    </td>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/GIT_PUBLISHER-F97316?style=for-the-badge" alt="Git Publisher"/><br/><br/>
+      Conventional commits, stacked PRs with <code>gh stack</code> and Mermaid diagrams.<br/><br/>
+      <sub><b>NO AI CO-AUTHOR TAGS, EVER</b></sub>
+    </td>
+    <td width="25%" valign="top" align="center">
+      <img src="https://img.shields.io/badge/SETUP-64748B?style=for-the-badge" alt="Setup"/><br/><br/>
+      Scans your stack and gives every agent its own project context.<br/><br/>
+      <sub><b>NO AGENT FLIES BLIND</b></sub>
+    </td>
+  </tr>
+</table>
+
+### The org chart
 
 ```mermaid
 flowchart TD
-    User["User / Product Request"] --> M["Manager<br/>Product & UX"]
-    M -->|"Product spec + UX acceptance criteria"| TL["Tech Lead"]
-    TL -->|"Data architecture / migrations"| DE["Data Engineer"]
-    TL -->|"API & business logic"| BE["Backend Developer"]
-    TL -->|"UI & Core Web Vitals"| FE["Frontend Developer"]
-    DE -.->|"Data layer (base PR)"| BE
-    BE -.->|"API layer (stacked PR)"| FE
-    DE & BE & FE -->|"Verification & result book"| T["Tester"]
-    T -->|"Final acceptance"| M
+    User(["You: product request"]) --> M["MANAGER<br/>Product & UX"]
+    M -->|"Spec + acceptance criteria"| TL["TECH LEAD<br/>Architecture"]
+    TL -->|"Schema contract"| DE["DATA ENGINEER"]
+    TL -->|"API contract"| BE["BACKEND"]
+    TL -->|"UI contract"| FE["FRONTEND"]
+    DE -.->|"Base PR"| BE
+    BE -.->|"Stacked PR"| FE
+    DE & BE & FE -->|"Ready for verification"| T["TESTER"]
+    T -->|"Result book"| M
+
+    classDef you fill:#0d1117,stroke:#ffffff,color:#ffffff,stroke-width:2px
+    classDef manager fill:#8E75B2,stroke:#8E75B2,color:#ffffff
+    classDef lead fill:#4285F4,stroke:#4285F4,color:#ffffff
+    classDef data fill:#0EA5E9,stroke:#0EA5E9,color:#ffffff
+    classDef back fill:#22C55E,stroke:#22C55E,color:#0d1117
+    classDef front fill:#EAB308,stroke:#EAB308,color:#0d1117
+    classDef test fill:#EF4444,stroke:#EF4444,color:#ffffff
+
+    class User you
+    class M manager
+    class TL lead
+    class DE data
+    class BE back
+    class FE front
+    class T test
 ```
 
-| Role                   | Owns                                                                     | Hard rule                                                 |
-| ---------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------- |
-| **Manager**            | Product vision, customer journey, acceptance criteria                    | Never reads or writes code                                |
-| **Tech Lead**          | Architecture decomposition, cross-service contracts, task sequencing     | Defines the interfaces before anyone builds               |
-| **Data Engineer**      | Schemas, indexing, migrations, Row Level Security                        | Always reviews schemas first                              |
-| **Backend Developer**  | Business logic, API endpoints, domain validation, server tests           | Builds on top of the data layer, never around it          |
-| **Frontend Developer** | Responsive interfaces                                                    | Meets Core Web Vitals: LCP < 2.5s, INP < 200ms, CLS < 0.1 |
-| **Tester**             | Independent verification in `test-results/<issue>.md`                    | Never fixes code                                          |
-| **Git Publisher**      | Conventional commits, PRs, stacked PRs with `gh stack`, Mermaid diagrams | Never adds AI co-author tags                              |
-| **Setup**              | Onboarding the team into any codebase                                    | Every agent gets its own project context                  |
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
-Every role lives in its own folder under `.agents/skills/<role>/`.
+## <a id="-watch-a-feature-ship"></a>Watch a feature ship
 
----
-
-## How a feature ships
+You type one sentence. The team does the rest.
 
 ```mermaid
 sequenceDiagram
@@ -78,116 +155,124 @@ sequenceDiagram
     participant T as Tester
     participant GP as Git Publisher
 
-    You->>M: "I want users to export their invoices"
+    You->>M: "Let users export their invoices"
     M->>TL: Product spec + acceptance criteria
-    TL->>DE: Schema and migration contract
-    DE->>GP: Base PR (data layer)
+    TL->>DE: Schema + migration contract
+    DE->>GP: PR 1: data layer
     TL->>BE: API contract
-    BE->>GP: Stacked PR (API layer)
+    BE->>GP: PR 2: API layer (stacked on PR 1)
     TL->>FE: UI contract + Web Vitals budget
-    FE->>GP: Stacked PR (UI layer)
-    DE->>T: Ready for verification
-    BE->>T: Ready for verification
-    FE->>T: Ready for verification
-    T->>M: Result book: pass / fail per criterion
+    FE->>GP: PR 3: UI layer (stacked on PR 2)
+    DE->>T: Ready
+    BE->>T: Ready
+    FE->>T: Ready
+    T->>M: Result book: pass or fail per criterion
     M->>You: Accepted, or sent back with findings
 ```
 
-Each layer lands as its own pull request, stacked on the one below it. Reviewers see small, focused diffs in the right order: data, then API, then UI.
+<table>
+  <tr>
+    <td align="center"><img src="https://img.shields.io/badge/PR_1-DATA-0EA5E9?style=for-the-badge&labelColor=0d1117" alt="PR 1"/></td>
+    <td align="center"><b>→</b></td>
+    <td align="center"><img src="https://img.shields.io/badge/PR_2-API-22C55E?style=for-the-badge&labelColor=0d1117" alt="PR 2"/></td>
+    <td align="center"><b>→</b></td>
+    <td align="center"><img src="https://img.shields.io/badge/PR_3-UI-EAB308?style=for-the-badge&labelColor=0d1117" alt="PR 3"/></td>
+  </tr>
+</table>
 
----
+Small, focused diffs, stacked in the order a senior reviewer would want them.
 
-## Quick start
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
-**1. Add the team to your repository**
+## <a id="-install-in-60-seconds"></a>Install in 60 seconds
 
-Copy the `.agents/` folder from this repo into the root of your project:
+**1. Bring the team into your repo**
 
 ```bash
 git clone https://github.com/pato-byepaper/agentic-engineering.git
 cp -r agentic-engineering/.agents ./your-project/
 ```
 
-**2. Onboard the team**
-
-From your project root, run the setup workflow:
+**2. Onboard them**
 
 ```bash
+cd your-project
 ./.agents/skills/setup/scripts/bootstrap_context.sh
 ```
 
 **3. Talk to the Manager**
 
-Describe what you want in product terms. The team takes it from there.
+Describe what you want in product terms. Not code. Not files. Just the outcome.
 
----
+### What setup learns about your project
 
-## What setup does
+| It detects | Like |
+|:---|:---|
+| **Languages & frameworks** | Node, TypeScript, Python, Go, Rust, React, Next.js, Vue, FastAPI, Django |
+| **Data layer & ORMs** | Postgres, MySQL, SQLite, MongoDB, Prisma, Drizzle, SQLAlchemy |
+| **Testing suites** | Vitest, Jest, Playwright, Pytest, Go test |
+| **Git conventions** | Main branch, remotes, stacked PR settings |
 
-The `setup` skill scans your project and writes a dedicated `context/` folder inside every agent, so **no agent ever loses project context**.
+Every agent gets its own `context/` folder, so **nobody loses the plot**. Then setup runs an **alignment interview** with you to capture what code can't explain: your business domain, your users and why your architecture looks the way it does.
 
-| It detects               | Examples                                                                 |
-| ------------------------ | ------------------------------------------------------------------------ |
-| Languages and frameworks | Node, TypeScript, Python, Go, Rust, React, Next.js, Vue, FastAPI, Django |
-| Data layer and ORMs      | Postgres, MySQL, SQLite, MongoDB, Prisma, Drizzle, SQLAlchemy            |
-| Testing suites           | Vitest, Jest, Playwright, Pytest, Go test                                |
-| Git conventions          | Main branch, remotes, stacked PR settings                                |
-
-Then it runs an **alignment interview** with you to capture what code can't tell it: the business domain, the users and the reasoning behind your architecture.
-
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
 ## The guardrails
 
-The power of this team is in what each agent is **not allowed** to do.
+The power of this team isn't what each agent can do. **It's what each agent is forbidden to do.**
 
-- **The Manager never touches code.** Product decisions stay product decisions.
-- **The Tech Lead defines contracts first.** Nobody builds against an interface that doesn't exist yet.
-- **The Data Engineer goes first.** Schemas are reviewed before a single endpoint is written.
-- **The Tester never fixes.** Findings go back to the role that owns the work.
-- **The Git Publisher writes history for humans.** Conventional commits, stacked PRs, simple diagrams and no AI co-author tags.
+| | Rule | Why |
+|:---:|:---|:---|
+| **01** | The Manager never touches code | Product decisions stay product decisions |
+| **02** | The Tech Lead defines contracts first | Nobody builds against an interface that doesn't exist |
+| **03** | The Data Engineer goes first | Schemas are reviewed before a single endpoint exists |
+| **04** | The Tester never fixes | Findings go back to the owner, not around them |
+| **05** | No AI co-author tags | Git history is written for humans |
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
+
+## <a id="-the-one-rule"></a>The one rule
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=34&duration=3000&pause=2000&color=F97316&center=true&vCenter=true&width=800&height=70&lines=Nadie+corrige+su+propia+tarea.;Nobody+fixes+their+own+work." alt="Nadie corrige su propia tarea" />
+</p>
+
+<p align="center">
+  <b>The one who builds is never the one who approves.</b><br/>
+  Every change is verified independently by the Tester. No exceptions.
+</p>
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
 ## Repository structure
 
 ```text
 .agents/
-  skills/
-    manager/
-    tech-lead/
-    data-engineer/
-    backend-developer/
-    frontend-developer/
-    tester/
-    git-publisher/
-    setup/
-      scripts/
-        bootstrap_context.sh
+└── skills/
+    ├── manager/
+    ├── tech-lead/
+    ├── data-engineer/
+    ├── backend-developer/
+    ├── frontend-developer/
+    ├── tester/
+    ├── git-publisher/
+    └── setup/
+        └── scripts/
+            └── bootstrap_context.sh
 ```
 
----
+## Contributing
 
-## Core principle
-
-<div align="center">
-
-### Nadie corrige su propia tarea.
-
-#### Nobody fixes their own work.
-
-Verification is always done independently by the Tester.
-The one who builds is never the one who approves.
-
-</div>
-
----
+Designed a new role? Found a rule that makes the team better? Open a PR. Just remember: **someone else will review it.**
 
 ## License
 
-[MIT](LICENSE). Use it, fork it, and if you design a new role, send a PR.
+[MIT](LICENSE)
 
-<div align="center">
-<br/>
-<sub>Built by <a href="https://github.com/pato-byepaper">Pato</a> at <a href="https://github.com/ByePaper">ByePaper</a>.</sub>
-</div>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:F97316,50:8E75B2,100:4285F4&height=140&section=footer&text=Low%20code.%20High%20engineering.&fontSize=22&fontColor=ffffff&fontAlignY=70" alt="Footer" width="100%" />
+</p>
+
+<p align="center">
+  <sub>Built by <a href="https://github.com/pato-byepaper"><b>Pato</b></a> at <a href="https://github.com/ByePaper"><b>ByePaper</b></a></sub>
+</p>
