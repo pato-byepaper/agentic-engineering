@@ -288,7 +288,9 @@ The power of this team isn't what each agent can do. **It's what each agent is f
 | **02** | The Tech Lead defines contracts first | Nobody builds against an interface that doesn't exist |
 | **03** | The Data Engineer goes first | Schemas are reviewed before a single endpoint exists |
 | **04** | The Tester never fixes | Findings go back to the owner, not around them |
-| **05** | No AI co-author tags | Git history is written for humans |
+| **05** | No emojis in commits or PRs | Clean, professional plain text without decoration |
+| **06** | Dual simple diagrams in PRs | Every PR illustrates logic flow and test execution |
+| **07** | No AI co-author tags | Git history is written for humans |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 

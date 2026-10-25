@@ -14,7 +14,7 @@ Brief evaluation of the pull request changes, intent, and overall risk.
 
 ## 2. Findings & Action Items
 
-### 🔴 Critical / Blocking (Must fix before merge)
+### Critical / Blocking (Must fix before merge)
 - **File**: `path/to/file.ext` (Line XX)
   - **Issue**: Description of security flaw, N+1 query, or broken contract.
   - **Suggested Fix**:
@@ -22,7 +22,7 @@ Brief evaluation of the pull request changes, intent, and overall risk.
     // Corrected code snippet
     ```
 
-### 🟡 Minor / Improvement (Non-blocking)
+### Minor / Improvement (Non-blocking)
 - **File**: `path/to/file.ext` (Line XX)
   - **Suggestion**: Naming clarity, minor refactoring, or additional test case.
 
