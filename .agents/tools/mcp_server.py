@@ -311,8 +311,18 @@ TOOLS_DEFINITIONS = [
             "properties": {
                 "category": {
                     "type": "string",
-                    "enum": ["danger", "testing", "architecture", "coordination"],
-                    "description": "Optional category filter"
+                    "enum": [
+                        "danger",
+                        "testing",
+                        "data",
+                        "contract",
+                        "ui_state",
+                        "infrastructure",
+                        "architecture",
+                        "governance",
+                        "coordination"
+                    ],
+                    "description": "Optional category filter: danger, testing, data, contract, ui_state, infrastructure, architecture, governance, coordination"
                 }
             }
         }
