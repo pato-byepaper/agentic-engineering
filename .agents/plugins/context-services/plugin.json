@@ -1,0 +1,6 @@
+{
+  "name": "context-services",
+  "description": "Custom RAG service and Dependency Graph service for managing large context files and architectural relationships with AGY Gemini models.",
+  "version": "1.0.0",
+  "author": "pato-byepaper"
+}
