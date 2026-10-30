@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-mcp_server.py - Zero-dependency Model Context Protocol (MCP) server for AGY Gemini models.
-Exposes custom tools for token-efficient Markdown RAG and Dependency Relationship Graphs over stdio.
+mcp_server.py - Advanced Model Context Protocol (MCP) server for AGY Gemini models.
+Exposes custom tools for token-efficient Markdown RAG (headings, diagrams, code blocks, alerts, tables)
+and Dependency Relationship Graphs (with predefined dangerous operations, test links, and blast radius checking).
 """
 
 import json
@@ -15,39 +16,52 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from rag_service import (
     DEFAULT_RAG_FILE,
+    extract_alerts,
+    extract_code_blocks,
+    extract_diagrams,
     extract_from_rag,
+    extract_tables,
     get_topics,
     save_in_rag,
+    search_rag,
 )
 from graph_service import (
     DEFAULT_GRAPH_JSON,
+    PREDEFINED_RELATIONSHIPS,
     add_relationship,
+    check_impact,
     export_mermaid,
     get_relationships,
     list_entities,
+    list_relationship_types,
     load_graph,
 )
 
 SERVER_NAME = "context-services-mcp"
-SERVER_VERSION = "1.0.0"
+SERVER_VERSION = "2.0.0"
 
 TOOLS_DEFINITIONS = [
+    # RAG Tools
     {
         "name": "get_topics",
-        "description": "Scans a markdown file using regex to extract all topics (#) and subtopics (##) with their line boundaries and counts. Use this first before reading large context files to maintain minimal token usage.",
+        "description": "Scans a markdown file using regex to extract hierarchical topics (# through ######) with line boundaries and line counts. Use this first before reading large context files to maintain minimal token usage.",
         "inputSchema": {
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
                     "description": "Path to the markdown context file (defaults to .agents/context/knowledge_base.md)"
+                },
+                "depth": {
+                    "type": "integer",
+                    "description": "Max heading depth to inspect (defaults to 4)"
                 }
             }
         }
     },
     {
         "name": "extract_from_rag",
-        "description": "Extracts ONLY the in-between lines for a specific topic (#) or subtopic (##) using regex boundaries. Minimizes token consumption when inspecting large context.",
+        "description": "Extracts ONLY the in-between lines for a specific topic (#), subtopic (##), or section (###) using regex boundaries. Minimizes token consumption when reading large documents.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -59,6 +73,10 @@ TOOLS_DEFINITIONS = [
                     "type": "string",
                     "description": "Optional subtopic title (##)"
                 },
+                "section": {
+                    "type": "string",
+                    "description": "Optional deep section title (### or deeper)"
+                },
                 "file_path": {
                     "type": "string",
                     "description": "Path to the markdown context file"
@@ -68,8 +86,106 @@ TOOLS_DEFINITIONS = [
         }
     },
     {
+        "name": "extract_diagrams",
+        "description": "Extracts all Mermaid diagrams (flowcharts, sequence diagrams, ERDs) from markdown without loading surrounding prose.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic name to limit extraction to a specific section"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_code_blocks",
+        "description": "Extracts fenced code blocks filtered by programming language (sql, ts, py, bash, json) from markdown.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "language": {
+                    "type": "string",
+                    "description": "Optional language tag filter (e.g. sql, typescript, python, bash, json)"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic name to limit extraction"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_alerts",
+        "description": "Extracts critical callouts and safety invariants (> [!WARNING], > [!DANGER], > [!IMPORTANT], > [!CAUTION]). Use this to check safety guidelines before executing tasks.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Optional alert type filter (WARNING, DANGER, IMPORTANT, NOTE, CAUTION)"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic name"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_tables",
+        "description": "Extracts and parses markdown data tables into structured columns and rows.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic name"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "search_rag",
+        "description": "Searches for a keyword or regex pattern in the markdown file and returns ONLY the enclosing section (heading + in-between lines), without loading irrelevant document parts.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search keyword or regular expression"
+                },
+                "regex": {
+                    "type": "boolean",
+                    "description": "Whether to treat query as regex (default: false)"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            },
+            "required": ["query"]
+        }
+    },
+    {
         "name": "save_in_rag",
-        "description": "Saves or appends notes, architectural invariants, or large context under a # topic or ## subtopic in the markdown RAG file.",
+        "description": "Saves or appends notes, architectural invariants, or large context under a # topic, ## subtopic, or ### section in the markdown RAG file.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -85,6 +201,10 @@ TOOLS_DEFINITIONS = [
                     "type": "string",
                     "description": "Optional subtopic title (##)"
                 },
+                "section": {
+                    "type": "string",
+                    "description": "Optional deep section title (###)"
+                },
                 "mode": {
                     "type": "string",
                     "enum": ["append", "replace"],
@@ -98,9 +218,11 @@ TOOLS_DEFINITIONS = [
             "required": ["topic", "content"]
         }
     },
+
+    # Graph Tools
     {
         "name": "add_relationship",
-        "description": "Records an architectural or dependency relationship between two entities (e.g. ServiceA depends_on ServiceB, Controller calls Service) and updates the live Mermaid diagram.",
+        "description": "Records an architectural or dependency relationship between two entities and updates the live Mermaid diagram. Supports predefined dangerous operations (dangerously_destroys, dangerously_breaks, dangerously_overwrites, dangerously_exposes), testing links (tests, unit_tests, e2e_tests, mocks), architecture (depends_on, calls, implements, queries), and custom relations.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -110,7 +232,7 @@ TOOLS_DEFINITIONS = [
                 },
                 "relationship": {
                     "type": "string",
-                    "description": "Relationship type (e.g. depends_on, calls, implements, migrates_to, blocks, imports)"
+                    "description": "Relationship type (e.g. dangerously_destroys, dangerously_breaks, tests, depends_on, calls, implements, queries, blocks)"
                 },
                 "target": {
                     "type": "string",
@@ -130,7 +252,7 @@ TOOLS_DEFINITIONS = [
     },
     {
         "name": "get_relationships",
-        "description": "Queries the dependency graph for an entity's incoming, outgoing, or all connections.",
+        "description": "Queries the dependency graph for an entity's incoming, outgoing, or all connections. Can filter by danger flag or category.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -141,6 +263,15 @@ TOOLS_DEFINITIONS = [
                 "relationship": {
                     "type": "string",
                     "description": "Optional relationship type filter"
+                },
+                "category": {
+                    "type": "string",
+                    "enum": ["danger", "testing", "architecture", "coordination"],
+                    "description": "Filter by predefined category"
+                },
+                "only_dangerous": {
+                    "type": "boolean",
+                    "description": "If true, only return dangerous relationships"
                 },
                 "direction": {
                     "type": "string",
@@ -155,8 +286,40 @@ TOOLS_DEFINITIONS = [
         }
     },
     {
+        "name": "check_impact",
+        "description": "Pre-edit blast radius analysis! Evaluates associated test files, downstream consumers that might break, and dangerous relationships connected to an entity/file before making changes.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "entity": {
+                    "type": "string",
+                    "description": "Entity, component, or file path to evaluate before editing"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Custom graph storage JSON path"
+                }
+            },
+            "required": ["entity"]
+        }
+    },
+    {
+        "name": "list_relationship_types",
+        "description": "Lists all predefined relationship types (including dangerous operations and test links) and their descriptions.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string",
+                    "enum": ["danger", "testing", "architecture", "coordination"],
+                    "description": "Optional category filter"
+                }
+            }
+        }
+    },
+    {
         "name": "export_graph_mermaid",
-        "description": "Exports the complete dependency and relationship graph as a Mermaid flowchart diagram.",
+        "description": "Exports the complete dependency and relationship graph as a Mermaid flowchart diagram with danger alerts.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -176,37 +339,70 @@ TOOLS_DEFINITIONS = [
 
 
 def send_response(response: Dict[str, Any]):
-    """Sends a JSON-RPC response over standard output with newline delimiter."""
     payload = json.dumps(response)
-    # Output line-delimited JSON
     sys.stdout.write(payload + "\n")
     sys.stdout.flush()
 
 
 def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
-    """Dispatches tool execution to the appropriate service."""
     try:
         if name == "get_topics":
             file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
-            res = get_topics(file_path)
+            depth = arguments.get("depth", 4)
+            res = get_topics(file_path, depth)
             return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
 
         elif name == "extract_from_rag":
             topic = arguments["topic"]
             subtopic = arguments.get("subtopic")
+            section = arguments.get("section")
             file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
-            res = extract_from_rag(topic, subtopic, file_path)
+            res = extract_from_rag(topic, subtopic, section, file_path)
             if "error" in res and res["error"]:
                 return {"isError": True, "content": [{"type": "text", "text": res["error"]}]}
             return {"content": [{"type": "text", "text": res["content"]}]}
+
+        elif name == "extract_diagrams":
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_diagrams(topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_code_blocks":
+            language = arguments.get("language")
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_code_blocks(language, topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_alerts":
+            atype = arguments.get("type")
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_alerts(atype, topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_tables":
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_tables(topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "search_rag":
+            query = arguments["query"]
+            regex = arguments.get("regex", False)
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = search_rag(query, regex, False, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
 
         elif name == "save_in_rag":
             topic = arguments["topic"]
             content = arguments["content"]
             subtopic = arguments.get("subtopic")
+            section = arguments.get("section")
             mode = arguments.get("mode", "append")
             file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
-            res = save_in_rag(topic, content, subtopic, file_path, mode)
+            res = save_in_rag(topic, content, subtopic, section, file_path, mode)
             return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
 
         elif name == "add_relationship":
@@ -222,8 +418,21 @@ def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
             entity = arguments.get("entity")
             relationship = arguments.get("relationship")
             direction = arguments.get("direction", "all")
+            category = arguments.get("category")
+            only_dangerous = arguments.get("only_dangerous", False)
             file_path = Path(arguments.get("file_path", DEFAULT_GRAPH_JSON))
-            res = get_relationships(entity, relationship, direction, file_path)
+            res = get_relationships(entity, relationship, direction, category, only_dangerous, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "check_impact":
+            entity = arguments["entity"]
+            file_path = Path(arguments.get("file_path", DEFAULT_GRAPH_JSON))
+            res = check_impact(entity, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "list_relationship_types":
+            category = arguments.get("category")
+            res = list_relationship_types(category)
             return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
 
         elif name == "export_graph_mermaid":
@@ -241,20 +450,15 @@ def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def run_stdio_server():
-    """Main loop reading JSON-RPC requests from standard input."""
-    # Ensure unbuffered text IO
     for line in sys.stdin:
         line = line.strip()
         if not line:
             continue
 
-        # Check for Content-Length header prefix if LSP framing is used
         if line.lower().startswith("content-length:"):
             try:
                 length = int(line.split(":")[1].strip())
-                # Read empty separator line
                 sys.stdin.readline()
-                # Read content bytes
                 content = sys.stdin.read(length)
                 request = json.loads(content)
             except Exception as e:
@@ -270,32 +474,23 @@ def run_stdio_server():
         method = request.get("method")
         params = request.get("params", {})
 
-        # Handle MCP methods
         if method == "initialize":
             send_response({
                 "jsonrpc": "2.0",
                 "id": req_id,
                 "result": {
                     "protocolVersion": "2024-11-05",
-                    "capabilities": {
-                        "tools": {}
-                    },
-                    "serverInfo": {
-                        "name": SERVER_NAME,
-                        "version": SERVER_VERSION
-                    }
+                    "capabilities": {"tools": {}},
+                    "serverInfo": {"name": SERVER_NAME, "version": SERVER_VERSION}
                 }
             })
         elif method == "notifications/initialized":
-            # No response needed for notification
             pass
         elif method == "tools/list":
             send_response({
                 "jsonrpc": "2.0",
                 "id": req_id,
-                "result": {
-                    "tools": TOOLS_DEFINITIONS
-                }
+                "result": {"tools": TOOLS_DEFINITIONS}
             })
         elif method == "tools/call":
             tool_name = params.get("name")
@@ -307,20 +502,13 @@ def run_stdio_server():
                 "result": result
             })
         elif method == "ping":
-            send_response({
-                "jsonrpc": "2.0",
-                "id": req_id,
-                "result": {}
-            })
+            send_response({"jsonrpc": "2.0", "id": req_id, "result": {}})
         else:
             if req_id is not None:
                 send_response({
                     "jsonrpc": "2.0",
                     "id": req_id,
-                    "error": {
-                        "code": -32601,
-                        "message": f"Method not found: {method}"
-                    }
+                    "error": {"code": -32601, "message": f"Method not found: {method}"}
                 })
 
 
