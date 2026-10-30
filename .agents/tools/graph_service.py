@@ -53,11 +53,77 @@ PREDEFINED_RELATIONSHIPS: Dict[str, Dict[str, Any]] = {
         "is_dangerous": True,
         "badge": "⚠️ [DANGER: DEPRECATES]"
     },
+    "dangerously_drops_table": {
+        "category": "danger",
+        "description": "Drops or truncates an entire database table, destroying schema and data",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: DROPS TABLE]"
+    },
+    "dangerously_drops_column": {
+        "category": "danger",
+        "description": "Drops or renames a database column with active read/write traffic",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: DROPS COLUMN]"
+    },
+    "dangerously_bypasses_rls": {
+        "category": "danger",
+        "description": "Bypasses or disables Row Level Security, allowing unauthorized table access",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: BYPASSES RLS]"
+    },
+    "dangerously_bypasses_auth": {
+        "category": "danger",
+        "description": "Skips authentication or authorization guards on an endpoint or service",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: BYPASSES AUTH]"
+    },
+    "dangerously_leaks_pii": {
+        "category": "danger",
+        "description": "Emits personally identifiable information, passwords, or tokens into logs or payloads",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: LEAKS PII]"
+    },
+    "dangerously_locks_table": {
+        "category": "danger",
+        "description": "Acquires exclusive table locks causing database connection pool exhaustion",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: LOCKS TABLE]"
+    },
+    "dangerously_unbounded_query": {
+        "category": "danger",
+        "description": "Executes query without pagination limit, risking memory exhaustion / OOM crashes",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: UNBOUNDED QUERY]"
+    },
+    "dangerously_blocks_event_loop": {
+        "category": "danger",
+        "description": "Executes synchronous CPU-heavy work on the main event loop thread",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: BLOCKS EVENT LOOP]"
+    },
+    "dangerously_invalidates_cache": {
+        "category": "danger",
+        "description": "Triggers global cache flush leading to downstream database cache stampede",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: CACHE STAMPEDE]"
+    },
+    "dangerously_disables_cors": {
+        "category": "danger",
+        "description": "Disables CORS restrictions or allows wildcard origins on authenticated endpoints",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: DISABLES CORS]"
+    },
+    "dangerously_downgrades_security": {
+        "category": "danger",
+        "description": "Weakens encryption ciphers, hashing rounds, or authentication requirements",
+        "is_dangerous": True,
+        "badge": "⚠️ [DANGER: DOWNGRADES SECURITY]"
+    },
 
     # 2. Testing & Verification Relations
     "tests": {
         "category": "testing",
-        "description": "Test file or suite validates the target implementation",
+        "description": "Test suite validates the target implementation",
         "is_dangerous": False,
         "badge": "🧪 tests"
     },
@@ -75,15 +141,57 @@ PREDEFINED_RELATIONSHIPS: Dict[str, Dict[str, Any]] = {
     },
     "e2e_tests": {
         "category": "testing",
-        "description": "End-to-end browser test verifies live user journey for target UI",
+        "description": "End-to-end browser test verifies live user journey and Core Web Vitals for target UI",
         "is_dangerous": False,
         "badge": "🧪 e2e_tests"
+    },
+    "regression_tests": {
+        "category": "testing",
+        "description": "Dedicated regression test suite guards against past defects or regressions",
+        "is_dangerous": False,
+        "badge": "🧪 regression_tests"
+    },
+    "smoke_tests": {
+        "category": "testing",
+        "description": "Fast smoke/sanity test verifying core functionality post-deployment",
+        "is_dangerous": False,
+        "badge": "🧪 smoke_tests"
+    },
+    "contract_tests": {
+        "category": "testing",
+        "description": "Consumer-driven contract test validates API payload compatibility",
+        "is_dangerous": False,
+        "badge": "🧪 contract_tests"
+    },
+    "benchmarks": {
+        "category": "testing",
+        "description": "Performance benchmark validates latency and throughput budgets",
+        "is_dangerous": False,
+        "badge": "🧪 benchmarks"
+    },
+    "snapshots": {
+        "category": "testing",
+        "description": "Snapshot test captures and asserts UI markup or serialized data structure",
+        "is_dangerous": False,
+        "badge": "🧪 snapshots"
+    },
+    "fuzzes": {
+        "category": "testing",
+        "description": "Fuzz testing generates pseudorandom input permutations to expose unexpected panics",
+        "is_dangerous": False,
+        "badge": "🧪 fuzzes"
     },
     "mocks": {
         "category": "testing",
         "description": "Mock or fixture simulates behavior of target dependency",
         "is_dangerous": False,
         "badge": "🧪 mocks"
+    },
+    "seeds": {
+        "category": "testing",
+        "description": "Provides seed records or mock database state for testing target",
+        "is_dangerous": False,
+        "badge": "🧪 seeds"
     },
     "verifies": {
         "category": "testing",
@@ -92,7 +200,237 @@ PREDEFINED_RELATIONSHIPS: Dict[str, Dict[str, Any]] = {
         "badge": "🧪 verifies"
     },
 
-    # 3. Architectural & Code Dependencies
+    # 3. Database, Storage & Persistence Relations
+    "migrates": {
+        "category": "data",
+        "description": "Database migration script creates or alters target table/schema",
+        "is_dangerous": False,
+        "badge": "migrates"
+    },
+    "enforces_rls_on": {
+        "category": "data",
+        "description": "Row Level Security policy defines tenant/role isolation on target table",
+        "is_dangerous": False,
+        "badge": "enforces_rls_on"
+    },
+    "indexes": {
+        "category": "data",
+        "description": "Database index accelerates lookup queries on target table/columns",
+        "is_dangerous": False,
+        "badge": "indexes"
+    },
+    "foreign_keys_to": {
+        "category": "data",
+        "description": "Foreign key constraint links to target parent table",
+        "is_dangerous": False,
+        "badge": "foreign_keys_to"
+    },
+    "queries": {
+        "category": "data",
+        "description": "Reads records from target database table or view",
+        "is_dangerous": False,
+        "badge": "queries"
+    },
+    "mutates": {
+        "category": "data",
+        "description": "Performs insert, update, or soft-delete on target table",
+        "is_dangerous": False,
+        "badge": "mutates"
+    },
+    "partitions": {
+        "category": "data",
+        "description": "Database partitioning strategy distributes target table data",
+        "is_dangerous": False,
+        "badge": "partitions"
+    },
+    "triggers": {
+        "category": "data",
+        "description": "Database trigger fires automated logic on target table event",
+        "is_dangerous": False,
+        "badge": "triggers"
+    },
+    "materializes": {
+        "category": "data",
+        "description": "Materializes query results into view or precalculated cache table",
+        "is_dangerous": False,
+        "badge": "materializes"
+    },
+    "stores_blob": {
+        "category": "data",
+        "description": "Persists binary files, images, or documents to target bucket/storage",
+        "is_dangerous": False,
+        "badge": "stores_blob"
+    },
+
+    # 4. API, Protocols, Schemas & Contracts
+    "exposes_endpoint": {
+        "category": "contract",
+        "description": "Route controller exposes target HTTP/RPC endpoint",
+        "is_dangerous": False,
+        "badge": "exposes_endpoint"
+    },
+    "consumes_endpoint": {
+        "category": "contract",
+        "description": "Client or backend service calls target remote HTTP/RPC endpoint",
+        "is_dangerous": False,
+        "badge": "consumes_endpoint"
+    },
+    "validates_schema": {
+        "category": "contract",
+        "description": "Schema validator (Zod, Pydantic, Joi) asserts payload structure for target",
+        "is_dangerous": False,
+        "badge": "validates_schema"
+    },
+    "implements_spec": {
+        "category": "contract",
+        "description": "Service implements OpenAPI, GraphQL, or Protobuf interface specification",
+        "is_dangerous": False,
+        "badge": "implements_spec"
+    },
+    "serializes": {
+        "category": "contract",
+        "description": "Serializes domain entity into target DTO or transport representation",
+        "is_dangerous": False,
+        "badge": "serializes"
+    },
+    "deserializes": {
+        "category": "contract",
+        "description": "Deserializes incoming transport payload into target domain entity",
+        "is_dangerous": False,
+        "badge": "deserializes"
+    },
+    "transforms": {
+        "category": "contract",
+        "description": "Transforms data between domain and external contract shapes",
+        "is_dangerous": False,
+        "badge": "transforms"
+    },
+    "authenticates": {
+        "category": "contract",
+        "description": "Verifies caller identity (JWT, OAuth, API key) for target endpoint",
+        "is_dangerous": False,
+        "badge": "authenticates"
+    },
+    "authorizes": {
+        "category": "contract",
+        "description": "Enforces role/permission check on caller for target action",
+        "is_dangerous": False,
+        "badge": "authorizes"
+    },
+
+    # 5. UI, DOM, State Management & Web Vitals
+    "renders": {
+        "category": "ui_state",
+        "description": "UI component renders target subcomponent or page view",
+        "is_dangerous": False,
+        "badge": "renders"
+    },
+    "manages_state_of": {
+        "category": "ui_state",
+        "description": "State store (Zustand, Redux, Context) manages reactive state for target",
+        "is_dangerous": False,
+        "badge": "manages_state_of"
+    },
+    "subscribes_to_store": {
+        "category": "ui_state",
+        "description": "Component subscribes to state slice in target store",
+        "is_dangerous": False,
+        "badge": "subscribes_to_store"
+    },
+    "dispatches_action": {
+        "category": "ui_state",
+        "description": "UI event handler dispatches action or command to target store",
+        "is_dangerous": False,
+        "badge": "dispatches_action"
+    },
+    "lazy_loads": {
+        "category": "ui_state",
+        "description": "Dynamically imports target module on demand to protect LCP budget",
+        "is_dangerous": False,
+        "badge": "lazy_loads"
+    },
+    "styles": {
+        "category": "ui_state",
+        "description": "Applies styling rules, theme tokens, or CSS classes to target component",
+        "is_dangerous": False,
+        "badge": "styles"
+    },
+    "affects_web_vitals": {
+        "category": "ui_state",
+        "description": "Component or script directly impacts LCP, INP, or CLS performance budgets",
+        "is_dangerous": False,
+        "badge": "affects_web_vitals"
+    },
+
+    # 6. Infrastructure, Runtime, Caching & Messaging
+    "caches": {
+        "category": "infrastructure",
+        "description": "Stores computed results in target cache (Redis, CDN, in-memory)",
+        "is_dangerous": False,
+        "badge": "caches"
+    },
+    "invalidates_cache": {
+        "category": "infrastructure",
+        "description": "Evicts target cache entry when underlying entity changes",
+        "is_dangerous": False,
+        "badge": "invalidates_cache"
+    },
+    "publishes_to": {
+        "category": "infrastructure",
+        "description": "Publishes events or messages to target message broker / queue",
+        "is_dangerous": False,
+        "badge": "publishes_to"
+    },
+    "subscribes_to": {
+        "category": "infrastructure",
+        "description": "Listens for events on target broker, queue, or event bus",
+        "is_dangerous": False,
+        "badge": "subscribes_to"
+    },
+    "rate_limits": {
+        "category": "infrastructure",
+        "description": "Enforces rate limiting or concurrency throttling on target resource",
+        "is_dangerous": False,
+        "badge": "rate_limits"
+    },
+    "encrypts": {
+        "category": "infrastructure",
+        "description": "Applies cryptographic encryption to target payload or field",
+        "is_dangerous": False,
+        "badge": "encrypts"
+    },
+    "decrypts": {
+        "category": "infrastructure",
+        "description": "Decrypts ciphertext from target secure storage or payload",
+        "is_dangerous": False,
+        "badge": "decrypts"
+    },
+    "reads_env": {
+        "category": "infrastructure",
+        "description": "Reads environment variable or secret configuration for target runtime",
+        "is_dangerous": False,
+        "badge": "reads_env"
+    },
+    "cron_triggers": {
+        "category": "infrastructure",
+        "description": "Scheduled cron job periodically executes target handler",
+        "is_dangerous": False,
+        "badge": "cron_triggers"
+    },
+    "provisions": {
+        "category": "infrastructure",
+        "description": "Infrastructure-as-Code (Terraform, Dockerfile) provisions target resource",
+        "is_dangerous": False,
+        "badge": "provisions"
+    },
+    "deploys_to": {
+        "category": "infrastructure",
+        "description": "CI/CD pipeline builds and deploys target artifact to target environment",
+        "is_dangerous": False,
+        "badge": "deploys_to"
+    },
+
+    # 7. Architecture & Code Dependency Relations
     "depends_on": {
         "category": "architecture",
         "description": "Component requires target to operate",
@@ -123,56 +461,52 @@ PREDEFINED_RELATIONSHIPS: Dict[str, Dict[str, Any]] = {
         "is_dangerous": False,
         "badge": "extends"
     },
-    "renders": {
-        "category": "architecture",
-        "description": "UI component renders target subcomponent or page view",
-        "is_dangerous": False,
-        "badge": "renders"
-    },
-    "validates": {
-        "category": "architecture",
-        "description": "Schema or DTO validator validates target payload or input",
-        "is_dangerous": False,
-        "badge": "validates"
-    },
-    "queries": {
-        "category": "architecture",
-        "description": "Reads data from target database table or view",
-        "is_dangerous": False,
-        "badge": "queries"
-    },
-    "mutates": {
-        "category": "architecture",
-        "description": "Performs write/update/delete operations on target table",
-        "is_dangerous": False,
-        "badge": "mutates"
-    },
-    "migrates": {
-        "category": "architecture",
-        "description": "Database migration modifies target schema/table",
-        "is_dangerous": False,
-        "badge": "migrates"
-    },
-    "publishes_to": {
-        "category": "architecture",
-        "description": "Publishes events or messages to target topic/queue",
-        "is_dangerous": False,
-        "badge": "publishes_to"
-    },
-    "subscribes_to": {
-        "category": "architecture",
-        "description": "Listens for events on target topic/queue",
-        "is_dangerous": False,
-        "badge": "subscribes_to"
-    },
     "configures": {
         "category": "architecture",
         "description": "Configuration file configures target service or runtime",
         "is_dangerous": False,
         "badge": "configures"
     },
+    "injects": {
+        "category": "architecture",
+        "description": "Dependency injection container supplies target instance to consumer",
+        "is_dangerous": False,
+        "badge": "injects"
+    },
 
-    # 4. Coordination & Stacked PR Flow
+    # 8. Governance, Policies & Documentation
+    "documents": {
+        "category": "governance",
+        "description": "Documentation or API specification documents target implementation",
+        "is_dangerous": False,
+        "badge": "documents"
+    },
+    "adheres_to_adr": {
+        "category": "governance",
+        "description": "Implementation strictly complies with target Architecture Decision Record",
+        "is_dangerous": False,
+        "badge": "adheres_to_adr"
+    },
+    "governed_by_policy": {
+        "category": "governance",
+        "description": "Module is bound by target security, data retention, or engineering policy",
+        "is_dangerous": False,
+        "badge": "governed_by_policy"
+    },
+    "replaces": {
+        "category": "governance",
+        "description": "Modern implementation replaces or supersedes target legacy component",
+        "is_dangerous": False,
+        "badge": "replaces"
+    },
+    "deprecated_by": {
+        "category": "governance",
+        "description": "Target component is marked deprecated and replaced by source",
+        "is_dangerous": False,
+        "badge": "deprecated_by"
+    },
+
+    # 9. Coordination & Stacked PR Flow
     "blocks": {
         "category": "coordination",
         "description": "Task or issue blocks progress on target task",
@@ -289,8 +623,10 @@ def export_mermaid(data: Dict[str, Any], output_path: Path = DEFAULT_GRAPH_MMD, 
                     is_dangerous = True
                     label = f"⚠️ [DANGER: {rel}]"
 
-            if is_dangerous:
-                # Highlight dangerous connections with thick / red dashed style
+            if rel.lower() == "blocks":
+                lines.append(f'    {src_id}["{src}"] ==>|"{label}"| {tgt_id}["{tgt}"]')
+            elif is_dangerous:
+                # Highlight dangerous connections with dashed alert style
                 lines.append(f'    {src_id}["{src}"] -.->|"{label}"| {tgt_id}["{tgt}"]')
             elif rel_info and rel_info["category"] == "testing":
                 lines.append(f'    {src_id}["{src}"] -.->|"{label}"| {tgt_id}["{tgt}"]')
@@ -439,7 +775,7 @@ def check_impact(entity: str, file_path: Path = DEFAULT_GRAPH_JSON) -> Dict[str,
     """
     Crucial pre-edit check! Evaluates the blast radius of modifying an entity/file:
     Identifies associated test files, incoming consumers that might break,
-    and dangerous dependencies connected to it.
+    dangerous dependencies, schema/contract implications, and overall risk rating.
     """
     data = load_graph(file_path)
     entity_clean = entity.strip().lower()
@@ -449,41 +785,91 @@ def check_impact(entity: str, file_path: Path = DEFAULT_GRAPH_JSON) -> Dict[str,
     consumers = []
     dependencies = []
     dangers = []
+    data_impacts = []
+    contract_impacts = []
+    ui_impacts = []
 
     for edge in edges:
         src = edge["source"]
         tgt = edge["target"]
         rel = edge.get("relationship", "")
+        rel_lower = rel.lower()
         is_dang = edge.get("is_dangerous", False)
+        rel_info = PREDEFINED_RELATIONSHIPS.get(rel_lower, {})
+        cat = edge.get("category") or rel_info.get("category", "custom")
+        if rel_info.get("is_dangerous", False):
+            is_dang = True
 
-        # Incoming edges (Things that call or depend on this entity)
+        is_test_rel = (
+            cat == "testing"
+            or "test" in rel_lower
+            or rel_lower in ["mocks", "seeds", "snapshots", "benchmarks", "fuzzes", "verifies"]
+        )
+
+        # Incoming edges (Things that call, test, or depend on this entity)
         if tgt.lower() == entity_clean:
-            if rel in ["tests", "unit_tests", "integration_tests", "e2e_tests"]:
-                tests.append({"test_file": src, "type": rel})
+            if is_test_rel:
+                tests.append({"test_file": src, "type": rel, "badge": rel_info.get("badge", rel)})
             else:
-                consumers.append({"consumer": src, "relationship": rel})
-            if is_dang:
-                dangers.append({"source": src, "relationship": rel, "target": tgt})
+                consumers.append({"consumer": src, "relationship": rel, "category": cat})
 
-        # Outgoing edges (Things this entity calls, modifies, or destroys)
-        if src.lower() == entity_clean:
-            dependencies.append({"dependency": tgt, "relationship": rel})
             if is_dang:
-                dangers.append({"source": src, "relationship": rel, "target": tgt})
+                dangers.append({"source": src, "relationship": rel, "target": tgt, "direction": "incoming"})
+
+            if cat == "data":
+                data_impacts.append({"source": src, "relationship": rel, "target": tgt})
+            elif cat == "contract":
+                contract_impacts.append({"source": src, "relationship": rel, "target": tgt})
+            elif cat == "ui_state":
+                ui_impacts.append({"source": src, "relationship": rel, "target": tgt})
+
+        # Outgoing edges (Things this entity calls, modifies, mutates, or destroys)
+        if src.lower() == entity_clean:
+            if is_test_rel:
+                tests.append({"test_file": tgt, "type": rel, "badge": rel_info.get("badge", rel)})
+            else:
+                dependencies.append({"dependency": tgt, "relationship": rel, "category": cat})
+
+            if is_dang:
+                dangers.append({"source": src, "relationship": rel, "target": tgt, "direction": "outgoing"})
+
+            if cat == "data":
+                data_impacts.append({"source": src, "relationship": rel, "target": tgt})
+            elif cat == "contract":
+                contract_impacts.append({"source": src, "relationship": rel, "target": tgt})
+            elif cat == "ui_state":
+                ui_impacts.append({"source": src, "relationship": rel, "target": tgt})
+
+    # Calculate risk rating
+    if any(d["relationship"].startswith("dangerously_") for d in dangers) or len(dangers) > 1:
+        risk_rating = "CRITICAL"
+    elif len(dangers) > 0 or (len(consumers) > 3 and len(tests) == 0):
+        risk_rating = "HIGH"
+    elif len(consumers) > 0 or len(data_impacts) > 0 or len(contract_impacts) > 0:
+        risk_rating = "MEDIUM"
+    else:
+        risk_rating = "LOW"
 
     return {
         "entity": entity,
+        "risk_rating": risk_rating,
         "safe_to_edit": len(dangers) == 0,
         "has_associated_tests": len(tests) > 0,
+        "associated_tests_count": len(tests),
         "associated_tests": tests,
         "downstream_consumers_count": len(consumers),
         "downstream_consumers": consumers,
         "dependencies_count": len(dependencies),
         "dependencies": dependencies,
+        "dangerous_relationships_count": len(dangers),
         "dangerous_relationships": dangers,
+        "data_and_schema_impacts": data_impacts,
+        "api_and_contract_impacts": contract_impacts,
+        "ui_and_web_vitals_impacts": ui_impacts,
         "summary": (
-            f"Entity '{entity}' has {len(tests)} test files, {len(consumers)} downstream consumers, "
-            f"and {len(dangers)} dangerous relationships."
+            f"Entity '{entity}' [{risk_rating} RISK]: {len(tests)} test files, {len(consumers)} consumers, "
+            f"{len(dependencies)} dependencies, {len(dangers)} dangerous links, "
+            f"{len(data_impacts)} data links, {len(contract_impacts)} contract links."
         )
     }
 
