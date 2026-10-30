@@ -1,0 +1,313 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d12"/>
+      <stop offset="50%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    
+    <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4285F4"/>
+      <stop offset="50%" stop-color="#8E75B2"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1c2129"/>
+      <stop offset="100%" stop-color="#13171f"/>
+    </linearGradient>
+
+    <linearGradient id="laser-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4285F4" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#4285F4" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="laser-glow" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Pro Text', 'Segoe UI', monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    
+    /* Animations */
+    @keyframes scan {
+      0% { transform: translateY(0px); opacity: 0.3; }
+      50% { transform: translateY(165px); opacity: 1; }
+      100% { transform: translateY(0px); opacity: 0.3; }
+    }
+    
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.04); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    @keyframes flow-right {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .scanner-line {
+      animation: scan 3.5s ease-in-out infinite;
+    }
+
+    .pulse-badge {
+      animation: pulse-ring 2.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .dash-flow {
+      stroke-dasharray: 6 6;
+      animation: flow-right 1.2s linear infinite;
+    }
+
+    .blink-dot {
+      animation: blink 1.6s ease-in-out infinite;
+    }
+
+    .floating-card {
+      animation: float 4s ease-in-out infinite;
+    }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="960" height="520" rx="14" fill="url(#bg-grad)" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Window Header / Title Bar -->
+  <rect width="960" height="42" rx="14" fill="#161b22"/>
+  <rect y="32" width="960" height="10" fill="#161b22"/>
+  <line x1="0" y1="42" x2="960" y2="42" stroke="#30363d" stroke-width="1"/>
+
+  <!-- macOS Window Controls -->
+  <circle cx="24" cy="21" r="5.5" fill="#EF4444" opacity="0.9"/>
+  <circle cx="42" cy="21" r="5.5" fill="#EAB308" opacity="0.9"/>
+  <circle cx="60" cy="21" r="5.5" fill="#22C55E" opacity="0.9"/>
+
+  <text x="480" y="26" text-anchor="middle" fill="#8b949e" class="mono" font-size="12" font-weight="600">
+    antigravity-rag-service — deterministic large file management (no vector db)
+  </text>
+  <rect x="850" y="12" width="90" height="18" rx="4" fill="#238636" opacity="0.2"/>
+  <text x="895" y="25" text-anchor="middle" fill="#3fb950" class="mono" font-size="10" font-weight="700">● ZERO EMBEDDINGS</text>
+
+  <!-- Top Banner Accent -->
+  <rect x="0" y="42" width="960" height="2" fill="url(#brand-grad)"/>
+
+  <!-- ===================================================================== -->
+  <!-- PANEL 1: STORE & PERSIST (Left) -->
+  <!-- ===================================================================== -->
+  <g transform="translate(30, 65)">
+    <!-- Card Container -->
+    <rect width="265" height="375" rx="10" fill="url(#card-grad)" stroke="#30363d" stroke-width="1.2"/>
+    
+    <!-- Panel Header -->
+    <rect width="265" height="38" rx="10" fill="#21262d"/>
+    <rect y="28" width="265" height="10" fill="#21262d"/>
+    <circle cx="20" cy="19" r="4" fill="#38bdf8"/>
+    <text x="32" y="23" fill="#e6edf3" class="sans" font-size="12" font-weight="700">1. PERSIST &amp; STRUCTURE</text>
+    <rect x="180" y="10" width="75" height="18" rx="4" fill="#4285F4" opacity="0.2"/>
+    <text x="217" y="22" text-anchor="middle" fill="#58a6ff" class="mono" font-size="9" font-weight="700">EDITABLE</text>
+
+    <!-- File Representation -->
+    <rect x="18" y="52" width="229" height="42" rx="6" fill="#0d1117" stroke="#388bfd" stroke-width="1"/>
+    <text x="30" y="70" fill="#7ee787" class="mono" font-size="11" font-weight="600">📄 knowledge_base.md</text>
+    <text x="30" y="85" fill="#8b949e" class="mono" font-size="9">50,000 Lines • Plain Markdown</text>
+
+    <!-- Markdown Hierarchy Preview -->
+    <g transform="translate(18, 108)">
+      <rect width="229" height="185" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+      
+      <!-- Section 1 -->
+      <rect x="10" y="12" width="209" height="26" rx="4" fill="#161b22"/>
+      <text x="18" y="29" fill="#f0883e" class="mono" font-size="11" font-weight="700"># System Architecture</text>
+      
+      <!-- Section 2 -->
+      <rect x="10" y="44" width="209" height="26" rx="4" fill="#161b22"/>
+      <text x="18" y="61" fill="#a371f7" class="mono" font-size="11" font-weight="700">## Database Schema</text>
+      
+      <!-- Target Section (Highlighted) -->
+      <rect x="10" y="76" width="209" height="34" rx="4" fill="#1f242c" stroke="#58a6ff" stroke-width="1.2"/>
+      <text x="18" y="93" fill="#58a6ff" class="mono" font-size="11" font-weight="700">### Sub-ticket: API</text>
+      <text x="18" y="105" fill="#7ee787" class="mono" font-size="9">@backend-developer • L142-L186</text>
+
+      <!-- Section 4 -->
+      <rect x="10" y="116" width="209" height="26" rx="4" fill="#161b22"/>
+      <text x="18" y="133" fill="#ec4899" class="mono" font-size="11" font-weight="700">## Non-Negotiable Rules</text>
+
+      <!-- Section 5 -->
+      <rect x="10" y="148" width="209" height="26" rx="4" fill="#161b22"/>
+      <text x="18" y="165" fill="#38bdf8" class="mono" font-size="11" font-weight="700">### Acceptance Criteria</text>
+    </g>
+
+    <!-- Save in RAG Action Tag -->
+    <rect x="18" y="306" width="229" height="52" rx="6" fill="#161b22" stroke="#238636" stroke-width="1"/>
+    <text x="28" y="325" fill="#3fb950" class="mono" font-size="10" font-weight="700">❯ save_in_rag(topic, content)</text>
+    <text x="28" y="342" fill="#8b949e" class="sans" font-size="9.5">Git-versioned context. Updates forever.</text>
+  </g>
+
+  <!-- Data Flow 1 (Arrow from Panel 1 to Panel 2) -->
+  <path d="M 295 250 L 338 250" stroke="#388bfd" stroke-width="2.5" fill="none" class="dash-flow"/>
+  <polygon points="344,250 334,244 334,256" fill="#388bfd"/>
+
+  <!-- ===================================================================== -->
+  <!-- PANEL 2: DETERMINISTIC SCANNER (Center) -->
+  <!-- ===================================================================== -->
+  <g transform="translate(348, 65)">
+    <!-- Card Container -->
+    <rect width="265" height="375" rx="10" fill="url(#card-grad)" stroke="#30363d" stroke-width="1.2"/>
+    
+    <!-- Panel Header -->
+    <rect width="265" height="38" rx="10" fill="#21262d"/>
+    <rect y="28" width="265" height="10" fill="#21262d"/>
+    <circle cx="20" cy="19" r="4" fill="#a855f7"/>
+    <text x="32" y="23" fill="#e6edf3" class="sans" font-size="12" font-weight="700">2. DETERMINISTIC SCAN</text>
+    <rect x="185" y="10" width="70" height="18" rx="4" fill="#8E75B2" opacity="0.2"/>
+    <text x="220" y="22" text-anchor="middle" fill="#d2a8ff" class="mono" font-size="9" font-weight="700">1ms SCAN</text>
+
+    <!-- Command Execution Window -->
+    <rect x="18" y="52" width="229" height="60" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="26" y="70" fill="#79c0ff" class="mono" font-size="9.5" font-weight="600">$ python3 rag_service.py</text>
+    <text x="26" y="85" fill="#a5d6ff" class="mono" font-size="9.5">  get-topics --depth 3</text>
+    <text x="26" y="101" fill="#7ee787" class="mono" font-size="8.5">✔ 18 sections indexed in 1.4ms</text>
+
+    <!-- Laser Scanning Area -->
+    <g transform="translate(18, 124)">
+      <rect width="229" height="175" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+      
+      <!-- Faux Code Lines in Background -->
+      <text x="14" y="24" fill="#484f58" class="mono" font-size="8.5">0140: ## Service Layer</text>
+      <text x="14" y="42" fill="#484f58" class="mono" font-size="8.5">0141: Sub-agent: @backend-dev</text>
+      <text x="14" y="60" fill="#58a6ff" class="mono" font-size="9" font-weight="700">0142: ### Sub-ticket: API [MATCH]</text>
+      <text x="14" y="78" fill="#79c0ff" class="mono" font-size="8.5">0143: - [ ] GET /api/v1/billing</text>
+      <text x="14" y="96" fill="#79c0ff" class="mono" font-size="8.5">0144: - [ ] POST /api/v1/charge</text>
+      <text x="14" y="114" fill="#79c0ff" class="mono" font-size="8.5">0145: Invariant: INP &lt; 200ms</text>
+      <text x="14" y="132" fill="#484f58" class="mono" font-size="8.5">0186: [BOUNDARY END: Next ##]</text>
+      <text x="14" y="150" fill="#484f58" class="mono" font-size="8.5">0187: ## Testing Strategy</text>
+
+      <!-- Animated Scanning Laser Line -->
+      <g class="scanner-line">
+        <line x1="2" y1="5" x2="227" y2="5" stroke="url(#laser-grad)" stroke-width="2.5" filter="url(#laser-glow)"/>
+        <circle cx="114" cy="5" r="3" fill="#00f2fe" filter="url(#glow)"/>
+      </g>
+    </g>
+
+    <!-- Token Savings Metric Box -->
+    <rect x="18" y="310" width="229" height="48" rx="6" fill="#161b22" stroke="#4285F4" stroke-width="1"/>
+    <text x="28" y="328" fill="#58a6ff" class="mono" font-size="10" font-weight="700">Tokens: 50,000 → 240</text>
+    <text x="28" y="344" fill="#3fb950" class="mono" font-size="9" font-weight="700">⚡ 99.5% CONTEXT SAVED (0 BLOAT)</text>
+  </g>
+
+  <!-- Data Flow 2 (Arrow from Panel 2 to Panel 3) -->
+  <path d="M 613 250 L 656 250" stroke="#a371f7" stroke-width="2.5" fill="none" class="dash-flow"/>
+  <polygon points="662,250 652,244 652,256" fill="#a371f7"/>
+
+  <!-- ===================================================================== -->
+  <!-- PANEL 3: AGENT DISPATCH & ISOLATION (Right) -->
+  <!-- ===================================================================== -->
+  <g transform="translate(665, 65)">
+    <!-- Card Container -->
+    <rect width="265" height="375" rx="10" fill="url(#card-grad)" stroke="#30363d" stroke-width="1.2"/>
+    
+    <!-- Panel Header -->
+    <rect width="265" height="38" rx="10" fill="#21262d"/>
+    <rect y="28" width="265" height="10" fill="#21262d"/>
+    <circle cx="20" cy="19" r="4" fill="#22c55e"/>
+    <text x="32" y="23" fill="#e6edf3" class="sans" font-size="12" font-weight="700">3. TARGETED EXTRACTION</text>
+    <rect x="195" y="10" width="60" height="18" rx="4" fill="#22C55E" opacity="0.2"/>
+    <text x="225" y="22" text-anchor="middle" fill="#3fb950" class="mono" font-size="9" font-weight="700">ZERO DB</text>
+
+    <!-- Sub-agent Item 1: Backend Developer -->
+    <g transform="translate(18, 52)">
+      <rect width="229" height="66" rx="6" fill="#0d1117" stroke="#388bfd" stroke-width="1.2"/>
+      <circle cx="16" cy="18" r="4" fill="#388bfd"/>
+      <text x="26" y="21" fill="#58a6ff" class="mono" font-size="10.5" font-weight="700">@backend-developer</text>
+      <text x="14" y="38" fill="#8b949e" class="mono" font-size="8.5">extract_agent_assignments</text>
+      <rect x="14" y="44" width="201" height="16" rx="3" fill="#161b22"/>
+      <text x="20" y="55" fill="#7ee787" class="mono" font-size="8.5">GET /api/v1/billing (L142-L186)</text>
+    </g>
+
+    <!-- Sub-agent Item 2: Tester -->
+    <g transform="translate(18, 128)">
+      <rect width="229" height="66" rx="6" fill="#0d1117" stroke="#22c55e" stroke-width="1.2"/>
+      <circle cx="16" cy="18" r="4" fill="#22c55e"/>
+      <text x="26" y="21" fill="#3fb950" class="mono" font-size="10.5" font-weight="700">@tester</text>
+      <text x="14" y="38" fill="#8b949e" class="mono" font-size="8.5">extract_acceptance_criteria</text>
+      <rect x="14" y="44" width="201" height="16" rx="3" fill="#161b22"/>
+      <text x="20" y="55" fill="#e6edf3" class="mono" font-size="8.5">15 Verifiable Invariants (L210)</text>
+    </g>
+
+    <!-- Sub-agent Item 3: Data Engineer -->
+    <g transform="translate(18, 204)">
+      <rect width="229" height="66" rx="6" fill="#0d1117" stroke="#f0883e" stroke-width="1.2"/>
+      <circle cx="16" cy="18" r="4" fill="#f0883e"/>
+      <text x="26" y="21" fill="#f0883e" class="mono" font-size="10.5" font-weight="700">@data-engineer</text>
+      <text x="14" y="38" fill="#8b949e" class="mono" font-size="8.5">extract_tasks --status pending</text>
+      <rect x="14" y="44" width="201" height="16" rx="3" fill="#161b22"/>
+      <text x="20" y="55" fill="#e6edf3" class="mono" font-size="8.5">- [ ] Invoices Schema + RLS</text>
+    </g>
+
+    <!-- Final Verdict Card -->
+    <g transform="translate(18, 280)">
+      <rect width="229" height="78" rx="6" fill="#161b22" stroke="#8E75B2" stroke-width="1"/>
+      <text x="12" y="22" fill="#d2a8ff" class="mono" font-size="10" font-weight="700">RESULT: PURE PRECISION</text>
+      <text x="12" y="39" fill="#8b949e" class="sans" font-size="9.5">• No vector DB drift or hallucinations</text>
+      <text x="12" y="54" fill="#8b949e" class="sans" font-size="9.5">• 100% Deterministic exact lines</text>
+      <text x="12" y="69" fill="#8b949e" class="sans" font-size="9.5">• Agent memory survives across tickets</text>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- BOTTOM PILL FOOTER: KEY TAKEAWAYS -->
+  <!-- ===================================================================== -->
+  <g transform="translate(30, 455)">
+    <rect width="900" height="45" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    
+    <g transform="translate(35, 27)">
+      <circle cx="0" cy="-4" r="4" fill="#38bdf8" class="blink-dot"/>
+      <text x="12" y="0" fill="#e6edf3" class="sans" font-size="11" font-weight="600">No Vector Database</text>
+      <text x="125" y="0" fill="#484f58" class="mono" font-size="11">|</text>
+    </g>
+
+    <g transform="translate(200, 27)">
+      <circle cx="0" cy="-4" r="4" fill="#7ee787"/>
+      <text x="12" y="0" fill="#e6edf3" class="sans" font-size="11" font-weight="600">100% Human-Editable</text>
+      <text x="145" y="0" fill="#484f58" class="mono" font-size="11">|</text>
+    </g>
+
+    <g transform="translate(390, 27)">
+      <circle cx="0" cy="-4" r="4" fill="#f0883e"/>
+      <text x="12" y="0" fill="#e6edf3" class="sans" font-size="11" font-weight="600">Deterministic Line Bounds</text>
+      <text x="165" y="0" fill="#484f58" class="mono" font-size="11">|</text>
+    </g>
+
+    <g transform="translate(600, 27)">
+      <circle cx="0" cy="-4" r="4" fill="#a855f7"/>
+      <text x="12" y="0" fill="#e6edf3" class="sans" font-size="11" font-weight="600">Git-Committed Memory</text>
+      <text x="150" y="0" fill="#484f58" class="mono" font-size="11">|</text>
+    </g>
+
+    <g transform="translate(790, 27)">
+      <circle cx="0" cy="-4" r="4" fill="#eab308"/>
+      <text x="12" y="0" fill="#e6edf3" class="sans" font-size="11" font-weight="600">Zero Token Waste</text>
+    </g>
+  </g>
+</svg>
