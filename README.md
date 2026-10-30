@@ -196,6 +196,18 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
       <sub>Script: <code>./.agents/skills/setup/scripts/bootstrap_context.sh</code></sub>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h4>Markdown RAG Service</h4>
+      Token-efficient context extraction for large files. Uses regex to scan <code>#</code> and <code>##</code> sections, reading only the in-between lines.
+      <sub>CLI: <code>python3 .agents/tools/rag_service.py get-topics</code></sub>
+    </td>
+    <td width="50%" colspan="2" valign="top">
+      <h4>Dependency Graph Service</h4>
+      Maintains entity relationships and service dependencies (<code>add-relationship</code>), automatically syncing live Mermaid diagrams (<code>dependencies.mmd</code>).
+      <sub>CLI: <code>python3 .agents/tools/graph_service.py add-relationship</code></sub>
+    </td>
+  </tr>
 </table>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
@@ -324,6 +336,11 @@ The power of this team isn't what each agent can do. **It's what each agent is f
 │   ├── committer.json
 │   └── tester.json
 │
+├── tools/                         # Custom CLI & MCP services for AGY Gemini models
+│   ├── rag_service.py             # Token-efficient regex RAG (get-topics, extract, save)
+│   ├── graph_service.py           # Dependency graph & live Mermaid sync
+│   └── mcp_server.py              # Zero-dependency Model Context Protocol stdio server
+│
 └── skills/                        # HOW work is executed (Procedures & Toolkits)
     ├── manager/
     ├── tech-lead/
@@ -333,6 +350,8 @@ The power of this team isn't what each agent can do. **It's what each agent is f
     ├── tester/
     ├── git-publisher/
     ├── setup/
+    ├── rag-service/               # Regex-based markdown RAG procedures
+    ├── graph-service/             # Dependency relationship graph procedures
     ├── planner/                   # Structured Feature/Bugfix/Refactor/Perf plans
     ├── code-reviewer/             # Pre-flight OWASP, N+1, & Web Vitals audit
     ├── doc-maintainer/            # Automatic ADR & API spec synchronization
