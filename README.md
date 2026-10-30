@@ -37,6 +37,7 @@
   <a href="#-the-problem"><b>The Problem</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-meet-the-team"><b>The Team</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-engineering-skills"><b>Engineering Skills</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-context-engine"><b>Context Engine</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-watch-a-feature-ship"><b>How It Ships</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-install-in-60-seconds"><b>Install</b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-the-one-rule"><b>The Rule</b></a>
@@ -209,6 +210,121 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
     </td>
   </tr>
 </table>
+
+<br/>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,35:4285F4,70:8E75B2,100:F97316&height=200&section=header&text=Deterministic%20Context%20Engine&fontSize=38&fontColor=ffffff&animation=twinkling&fontAlignY=38&desc=Large%20File%20Management%20%E2%80%A2%20No%20Vector%20DB%20%E2%80%A2%20100%25%20Human-Editable%20Context&descSize=15&descAlignY=64" width="100%" alt="Deterministic Context Engine" />
+</p>
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=20&duration=2600&pause=900&color=4285F4&center=true&vCenter=true&multiline=false&width=820&height=45&lines=It%27s+not+just+regex%E2%80%94it%27s+Deterministic+Large+File+Management.;Zero+vector+databases.+Zero+embeddings+drift.+Zero+hallucinations.;Store+50%2C000+lines+in+Markdown+and+extract+in-between+lines+in+1ms.;Fully+editable%2C+Git-versioned%2C+and+stored+for+future+events.;Sub-agents+pull+only+their+assigned+tasks+via+%40agent-name." alt="Large File Management Tagline" />
+</p>
+
+## <a id="-context-engine"></a>Deterministic Context Engine: It's Not "Just Regex"
+
+> [!IMPORTANT]
+> **Why Large File Management Replaces Vector Databases**:
+> Modern LLM applications drown in complexity trying to maintain vector databases (Pinecone, Chroma, pgvector). Embeddings are **probabilistic, opaque, and lose exact structural hierarchies**. When you need an agent to obey an exact invariant or fetch an API contract, vector search frequently returns fuzzy chunk fragments—or hallucinates entirely.
+
+Our team uses **Deterministic Large File Management**: storing massive context directly into plain, structured Markdown files (`.agents/context/knowledge_base.md`, ADRs, architecture plans) and using Python heading boundary indexing to discover line ranges (`L142 -> L186`) in 1 millisecond.
+
+<p align="center">
+  <img src="./assets/large-file-management.svg" alt="Large File Management & Deterministic Context Engine" width="100%" />
+</p>
+
+### Why This Beats a Vector Database for Autonomous Agents
+
+<table>
+  <thead>
+    <tr>
+      <th width="24%">Capability</th>
+      <th width="38%">❌ Traditional Vector DB (Embeddings RAG)</th>
+      <th width="38%">✅ Antigravity Large File Management</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Infrastructure &amp; Setup</b></td>
+      <td>Requires external DB servers (Pinecone, Qdrant, Chroma), API keys, and connection pools.</td>
+      <td><b>Zero dependencies</b>. Plain Markdown files stored right inside your git repository.</td>
+    </tr>
+    <tr>
+      <td><b>Human Editability</b></td>
+      <td><b>Black box</b>. Cannot open a vector database to fix a typo or update an architectural policy.</td>
+      <td><b>100% Editable &amp; Creatable</b>. Open in VSCode, edit with Antigravity, or append via <code>save-in-rag</code>.</td>
+    </tr>
+    <tr>
+      <td><b>Persistence &amp; Future Events</b></td>
+      <td>Embeddings easily drift out-of-sync with code changes. Hard to branch or rollback.</td>
+      <td><b>Git Version-Controlled</b>. Context commits alongside code diffs, creating permanent memory across tickets.</td>
+    </tr>
+    <tr>
+      <td><b>Accuracy &amp; Precision</b></td>
+      <td><b>Probabilistic cosine similarity</b>. Can retrieve irrelevant chunks or miss critical safety rules.</td>
+      <td><b>100% Deterministic line boundaries</b>. Guaranteed to extract exact lines between headings.</td>
+    </tr>
+    <tr>
+      <td><b>Sub-Agent Isolation</b></td>
+      <td>Generic chunk dumps. Agents waste tokens reading unrelated layers.</td>
+      <td><b>Targeted Work Scoping</b>. Sub-agents query <code>@agent-name</code>, tasks, or endpoints in 1ms.</td>
+    </tr>
+    <tr>
+      <td><b>Token &amp; Cost Economy</b></td>
+      <td>Embedding generation fees + massive chunk token dumps ($$$).</td>
+      <td><b>99.5% Token Reduction</b>. Scans 50,000 lines in 1.4ms and pulls only 35 lines.</td>
+    </tr>
+  </tbody>
+</table>
+
+### How Context Flows Across Future Events
+
+```mermaid
+flowchart LR
+    subgraph Storage ["1. Persistent Human-Editable Layer"]
+        A1["Product Tickets & Specifications"] --> KB[".agents/context/knowledge_base.md\n(50,000+ Lines)"]
+        A2["Architecture Decision Records (ADRs)"] --> KB
+        A3["Agent Notes (save-in-rag)"] --> KB
+    end
+
+    subgraph Indexer ["2. Deterministic Boundary Scanner"]
+        KB --> SCAN["Python Regex Parser\n(parse_headings_with_boundaries)"]
+        SCAN --> MAP["Hierarchical Line Map\n(H1 to H6 • 1.4ms)"]
+    end
+
+    subgraph Delivery ["3. Sub-Agent Precision Extraction"]
+        MAP -->|"extract-agent-assignments --agent backend-developer"| BE["Backend Developer\n(35 lines • 240 tokens)"]
+        MAP -->|"extract-acceptance-criteria"| T["Tester\n(15 Invariants • 180 tokens)"]
+        MAP -->|"extract-endpoints"| FE["Frontend Developer\n(API Contract • 120 tokens)"]
+    end
+```
+
+<details>
+<summary><b>🔍 Click to view interactive CLI &amp; MCP tool examples</b></summary>
+<br/>
+
+```bash
+# 1. Discover document structure, token footprints, and assigned agents in 1ms:
+python3 .agents/tools/rag_service.py get-topics --depth 3 --file .agents/context/knowledge_base.md
+
+# 2. Extract only tasks assigned to @backend-developer without token bloat:
+python3 .agents/tools/rag_service.py extract-agent-assignments --agent backend-developer
+
+# 3. Pull only verifiable acceptance criteria and invariants for testing:
+python3 .agents/tools/rag_service.py extract-acceptance-criteria
+
+# 4. Extract all HTTP routes defined across technical specs:
+python3 .agents/tools/rag_service.py extract-endpoints
+
+# 5. Persist fresh architectural decisions for future agent events:
+python3 .agents/tools/rag_service.py save-in-rag \
+  --topic "Billing" \
+  --subtopic "Idempotency" \
+  --content "All POST /charge requests require an Idempotency-Key header." \
+  --mode append
+```
+
+</details>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:4285F4,50:8E75B2,100:F97316&height=3" width="100%" alt="" />
 
