@@ -199,8 +199,8 @@ Beyond the core roles, the team mounts specialized procedural toolkits on demand
   <tr>
     <td width="50%" valign="top">
       <h4>Markdown RAG Service</h4>
-      Token-efficient context extraction for large files. Uses regex to scan headings (<code>#</code> to <code>######</code>), Mermaid diagrams, code blocks, alerts, and tables—reading only in-between lines.
-      <sub>CLI: <code>python3 .agents/tools/rag_service.py extract-diagrams</code> | <code>get-topics</code></sub>
+      Token-efficient context extraction for large files. Uses regex to scan headings (<code>#</code> to <code>######</code>), sub-agent assignments (<code>@agent-name</code>), checklists, acceptance criteria, diagrams, code blocks, alerts, and endpoints—reading only in-between lines.
+      <sub>CLI: <code>python3 .agents/tools/rag_service.py extract-agent-assignments</code> | <code>get-topics</code></sub>
     </td>
     <td width="50%" colspan="2" valign="top">
       <h4>Dependency Graph Service</h4>
