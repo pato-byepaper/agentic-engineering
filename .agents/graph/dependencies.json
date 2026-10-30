@@ -1,0 +1,110 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-10-29T19:51:15.507086",
+  "nodes": {
+    "Manager": {
+      "label": "Manager",
+      "created_at": "2026-10-29T19:51:14.921137"
+    },
+    "TechLead": {
+      "label": "TechLead",
+      "created_at": "2026-10-29T19:51:14.921141"
+    },
+    "DataEngineer": {
+      "label": "DataEngineer",
+      "created_at": "2026-10-29T19:51:14.987738"
+    },
+    "BackendDeveloper": {
+      "label": "BackendDeveloper",
+      "created_at": "2026-10-29T19:51:15.052290"
+    },
+    "FrontendDeveloper": {
+      "label": "FrontendDeveloper",
+      "created_at": "2026-10-29T19:51:15.116607"
+    },
+    "Committer": {
+      "label": "Committer",
+      "created_at": "2026-10-29T19:51:15.181430"
+    },
+    "CodeReviewer": {
+      "label": "CodeReviewer",
+      "created_at": "2026-10-29T19:51:15.375805"
+    },
+    "Tester": {
+      "label": "Tester",
+      "created_at": "2026-10-29T19:51:15.440776"
+    }
+  },
+  "edges": [
+    {
+      "source": "Manager",
+      "relationship": "dispatches_to",
+      "target": "TechLead",
+      "created_at": "2026-10-29T19:51:14.921143",
+      "metadata": {}
+    },
+    {
+      "source": "TechLead",
+      "relationship": "delegates_to",
+      "target": "DataEngineer",
+      "created_at": "2026-10-29T19:51:14.987748",
+      "metadata": {}
+    },
+    {
+      "source": "TechLead",
+      "relationship": "delegates_to",
+      "target": "BackendDeveloper",
+      "created_at": "2026-10-29T19:51:15.052300",
+      "metadata": {}
+    },
+    {
+      "source": "TechLead",
+      "relationship": "delegates_to",
+      "target": "FrontendDeveloper",
+      "created_at": "2026-10-29T19:51:15.116616",
+      "metadata": {}
+    },
+    {
+      "source": "DataEngineer",
+      "relationship": "hands_off_to",
+      "target": "Committer",
+      "created_at": "2026-10-29T19:51:15.181440",
+      "metadata": {}
+    },
+    {
+      "source": "BackendDeveloper",
+      "relationship": "hands_off_to",
+      "target": "Committer",
+      "created_at": "2026-10-29T19:51:15.244551",
+      "metadata": {}
+    },
+    {
+      "source": "FrontendDeveloper",
+      "relationship": "hands_off_to",
+      "target": "Committer",
+      "created_at": "2026-10-29T19:51:15.310621",
+      "metadata": {}
+    },
+    {
+      "source": "Committer",
+      "relationship": "submits_to",
+      "target": "CodeReviewer",
+      "created_at": "2026-10-29T19:51:15.375819",
+      "metadata": {}
+    },
+    {
+      "source": "CodeReviewer",
+      "relationship": "approves_for",
+      "target": "Tester",
+      "created_at": "2026-10-29T19:51:15.440787",
+      "metadata": {}
+    },
+    {
+      "source": "Tester",
+      "relationship": "verifies_for",
+      "target": "Manager",
+      "created_at": "2026-10-29T19:51:15.507073",
+      "metadata": {}
+    }
+  ]
+}

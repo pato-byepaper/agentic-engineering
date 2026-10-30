@@ -1,0 +1,11 @@
+flowchart TD
+    Manager["Manager"] -->|"dispatches_to"| TechLead["TechLead"]
+    TechLead["TechLead"] -->|"delegates_to"| DataEngineer["DataEngineer"]
+    TechLead["TechLead"] -->|"delegates_to"| BackendDeveloper["BackendDeveloper"]
+    TechLead["TechLead"] -->|"delegates_to"| FrontendDeveloper["FrontendDeveloper"]
+    DataEngineer["DataEngineer"] -->|"hands_off_to"| Committer["Committer"]
+    BackendDeveloper["BackendDeveloper"] -->|"hands_off_to"| Committer["Committer"]
+    FrontendDeveloper["FrontendDeveloper"] -->|"hands_off_to"| Committer["Committer"]
+    Committer["Committer"] -->|"submits_to"| CodeReviewer["CodeReviewer"]
+    CodeReviewer["CodeReviewer"] -->|"approves_for"| Tester["Tester"]
+    Tester["Tester"] -->|"verifies_for"| Manager["Manager"]
