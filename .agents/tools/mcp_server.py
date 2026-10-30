@@ -16,11 +16,17 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from rag_service import (
     DEFAULT_RAG_FILE,
+    extract_acceptance_criteria,
+    extract_agent_assignments,
     extract_alerts,
     extract_code_blocks,
     extract_diagrams,
+    extract_endpoints,
+    extract_env_vars,
+    extract_frontmatter,
     extract_from_rag,
     extract_tables,
+    extract_tasks,
     get_topics,
     save_in_rag,
     search_rag,
@@ -181,6 +187,117 @@ TOOLS_DEFINITIONS = [
                 }
             },
             "required": ["query"]
+        }
+    },
+    {
+        "name": "extract_agent_assignments",
+        "description": "Extracts sections, tasks, and instruction blocks assigned to sub-agents via '@agent-name' or 'sub-agent-in-charge: <agent>'. Allows sub-agents (backend-developer, tester, data-engineer) to isolate their exact work items from large documents without reading the rest.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "agent": {
+                    "type": "string",
+                    "description": "Agent name to filter by (e.g. backend-developer, tester, data-engineer, tech-lead)"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic filter"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file (defaults to knowledge base)"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_tasks",
+        "description": "Extracts markdown checklist items (- [ ] pending, - [x] completed) across sections, optionally filtered by status ('all', 'pending', 'completed') and assigned agent.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": ["all", "pending", "completed"],
+                    "description": "Task status filter (default: 'all')"
+                },
+                "agent": {
+                    "type": "string",
+                    "description": "Filter tasks assigned to specific agent (e.g. backend-developer)"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic filter"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_acceptance_criteria",
+        "description": "Extracts sections containing Acceptance Criteria, Definition of Done, Invariants, or Non-Negotiable Rules from tickets and plans.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic filter"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_endpoints",
+        "description": "Extracts HTTP API routes (GET, POST, PUT, DELETE, PATCH /...) defined in markdown specifications with enclosing section context.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic filter"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_env_vars",
+        "description": "Extracts environment variables and configuration keys (e.g. DATABASE_URL, PORT) from markdown documents.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic filter"
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
+        }
+    },
+    {
+        "name": "extract_frontmatter",
+        "description": "Extracts YAML/JSON frontmatter from the header of markdown documents (--- ... ---).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the markdown file"
+                }
+            }
         }
     },
     {
@@ -396,6 +513,44 @@ def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
             topic = arguments.get("topic")
             file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
             res = extract_tables(topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_agent_assignments":
+            agent = arguments.get("agent")
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_agent_assignments(agent, topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_tasks":
+            status = arguments.get("status", "all")
+            agent = arguments.get("agent")
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_tasks(status, agent, topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_acceptance_criteria":
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_acceptance_criteria(topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_endpoints":
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_endpoints(topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_env_vars":
+            topic = arguments.get("topic")
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_env_vars(topic, file_path)
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
+
+        elif name == "extract_frontmatter":
+            file_path = Path(arguments.get("file_path", DEFAULT_RAG_FILE))
+            res = extract_frontmatter(file_path)
             return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}]}
 
         elif name == "search_rag":
