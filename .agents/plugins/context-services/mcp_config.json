@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "context-services": {
+      "command": "python3",
+      "args": [
+        "./.agents/tools/mcp_server.py"
+      ],
+      "disabled": false
+    }
+  }
+}

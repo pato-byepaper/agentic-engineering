@@ -332,6 +332,38 @@ def populate_agent_contexts(root: Path, stack: dict, git_info: dict):
 """
     write_file_if_needed(skills_dir / "git-publisher" / "context" / "git_conventions.md", git_ctx)
 
+    # 8. RAG Knowledge Base and Relationship Graph Scaffolding
+    kb_path = root / ".agents" / "context" / "knowledge_base.md"
+    if not kb_path.exists():
+        kb_content = f"""# Knowledge Base: {proj_name}
+
+Core architecture invariants, domain notes, and large context repository.
+
+## System Topology
+- Project: {proj_name}
+- Stack: {langs_str} ({fe_str} | {be_str} | {db_str})
+- Orchestration: Multi-agent autonomous workflow via AGY Gemini models.
+
+## Architecture Invariants
+- Mandatory at least 3 stacked PRs for full-stack tasks.
+- Zero developer self-testing (assigned exclusively to tester).
+- At least 1 commit per task via Committer.
+"""
+        write_file_if_needed(kb_path, kb_content)
+
+    graph_path = root / ".agents" / "graph" / "dependencies.json"
+    if not graph_path.exists():
+        graph_data = {
+            "version": "1.0",
+            "project": proj_name,
+            "nodes": {
+                proj_name: {"label": proj_name}
+            },
+            "edges": []
+        }
+        write_file_if_needed(graph_path, json.dumps(graph_data, indent=2))
+        write_file_if_needed(root / ".agents" / "graph" / "dependencies.mmd", f"flowchart TD\n    {proj_name}[\"{proj_name}\"]\n")
+
 
 def main():
     root = Path.cwd()
